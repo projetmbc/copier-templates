@@ -2,8 +2,7 @@ Des outils de développement
 ======================================
 
 Le dossier `tools` est l'habitat des outils utiles au développement du projet, sans faire partie du projet lui-même.
-
-Le fichier `launch.bash`permet de lancer tous les outils en suivant les règles suivantes.
+Via le fichier `launch.bash`, il est possible de lancer tous les outils en suivant les règles suivantes.
 
   1. XXX
 
@@ -24,9 +23,11 @@ Le fichier `launch.bash`permet de lancer tous les outils en suivant les règles 
 #!/usr/bin/env python3
 
 from pathlib import Path
-import              sys
+import sys
 
 sys.path.append(str(Path(__file__).parent))
 
 import utilities
+
+...
 ~~~
