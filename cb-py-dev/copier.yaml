@@ -20,3 +20,4 @@ _exclude:
 # EXTRA CHOICES...
   - "*.log"
   - "__readme"
+  - "__pycache__"

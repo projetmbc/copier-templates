@@ -3,7 +3,9 @@
 from pathlib import Path
 import              sys
 
-sys.path.append(str(Path(__file__).parent.parent))
+_tools_dir = Path(__file__).parent
+
+sys.path.append(str(_tools_dir))
 
 from cbutils.core.cnp_code   import *
 from cbutils.core.need_tests import *
