@@ -5,7 +5,6 @@ toc:
 
 
 
-  - readme-file.md
-  - README-folders-struct.md
-  - launch.md
-  - utilities.md
+  - contrib-struct-in-doc.md      ??????
+  - launch.md                     ????
+  - utilities.md                  ??
