@@ -9,8 +9,8 @@ acronym:
     type: str
 
 
-_skip_if_exists:
-  - "TODO-FR.txt"
+# _skip_if_exists:
+#   - "TODO-FR.txt"
 
 # _exclude:
 # # ALWAYS!

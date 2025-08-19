@@ -23,7 +23,7 @@ HELP="$USAGE
 Options:
   -q, --quick Any builder named '...-slow.py' will be ignored.
               This option is useful during the development phase,
-              but not when the project has to be published.
+              but NOT WHEN THE PROJECT HAS TO BE PUBLISHED.
   -h, --help  Show this message and exit.
 "
 
@@ -103,7 +103,6 @@ cd "$THIS_DIR"
 
 rm -f tools.log
 
-# find . -type f -name "*.py" | sort | while read -r builderfile
 find . -type f -name "*.py" ! -path "*/utilities/*" | sort | while read -r builderfile
 do
     echo ""
