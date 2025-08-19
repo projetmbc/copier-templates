@@ -1,10 +1,6 @@
 toc:
   - prologue.md
   - treeview.md
-
-
-
-
-  - contrib-struct-in-doc.md      ??????
-  - launch.md                     ????
+  - launch.md                     ??????
+  - contrib-struct-in-doc.md
   - utilities.md                  ??

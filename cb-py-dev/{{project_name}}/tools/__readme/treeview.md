@@ -12,9 +12,11 @@ Here is the initial content of the `tools` folder, which serves as the basis for
   + utilities
     * README.md
     * __init__.py
-    * core_common.py
-    * core_cnp_code.py
-    * core_need_tests.py
+    + core/
+      * __init__.py
+      * common.py
+      * cnp_code.py
+      * need_tests.py
 ~~~
 
 
