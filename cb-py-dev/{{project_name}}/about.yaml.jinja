@@ -1,8 +1,11 @@
 project:
   version: 0.0.0-alpha
-
-  acronym: "?"
+{% if acronym %}
+  acronym: {{acronym}}
   desc   : {{desc}}
+{%- else %}
+  desc: {{desc}}
+{%- endif %}
 
   author: Christophe, BAL
 

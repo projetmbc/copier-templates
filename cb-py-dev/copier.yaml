@@ -4,7 +4,9 @@ project_name:
 
 desc:
     type: str
-#     help: What is the project name?
+
+acronym:
+    type: str
 
 
 _skip_if_exists:
