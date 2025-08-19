@@ -99,11 +99,14 @@ fi
 # -- LET'S WORK! -- #
 # ----------------- #
 
+# Let's work locally.
 cd "$THIS_DIR"
 
+# Logging must be done in the `tools.log` file, and we erase it at each launching.
 rm -f tools.log
 
-find . -type f -name "*.py" ! -path "*/utilities/*" | sort | while read -r builderfile
+# We ignore any Python file inside the `utilities` folder.
+find . -type f -name "*.py" ! -path "./utilities/*" | sort | while read -r builderfile
 do
     echo ""
 
@@ -111,10 +114,13 @@ do
 
     if [[ $QUICKOPTION == 1 && $filename =~ ^.*-slow\.py ]]
     then
+# Yellow formatting.
         print_about "33m" "Ignoring $builderfile"
 
     else
+# Green formatting.
         print_about "32m" "Launching $builderfile"
+
         python "$builderfile" || error_exit "$THIS_DIR" "$builderfile"
     fi
 done
