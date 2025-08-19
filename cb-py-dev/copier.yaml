@@ -11,10 +11,12 @@ acronym:
 
 # _skip_if_exists:
 #   - "TODO-FR.txt"
+#   - "README.md"
 
-# _exclude:
-# # ALWAYS!
-#   - "copier.yaml"
-#   - ".*"
-# # EXTRA CHOICES...
-#   - "*.md"
+_exclude:
+# ALWAYS!
+  - "copier.yaml"
+  - ".*"
+# EXTRA CHOICES...
+  - "*.log"
+  - "__readme"

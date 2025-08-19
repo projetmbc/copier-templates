@@ -24,6 +24,8 @@ TEMPL_TAG_STRUCT = "<!-- FOLDER STRUCT. AUTO - {} -->"
 TAG_STRUCT_START = TEMPL_TAG_STRUCT.format("START")
 TAG_STRUCT_END   = TEMPL_TAG_STRUCT.format("END")
 
+TAB_STRUCT = '\n  + '
+
 
 # ----------------- #
 # -- LET'S WORK! -- #
@@ -61,13 +63,19 @@ folders = [
 folders.sort()
 
 # Content updated.
-folders = '\n      + '.join(folders)
+if folders:
+    folders = TAB_STRUCT.join(folders)
+    folders = f"{TAB_STRUCT}{folders}"
+
+else:
+    folders = ""
 
 content = f"""{before.strip()}
 
 {TAG_STRUCT_START}
-    + {CONTRIB_DIR.name}
-      + {folders}
+~~~
++ {CONTRIB_DIR.name}{folders}
+~~~
 {TAG_STRUCT_END}
 {after.rstrip()}
 """

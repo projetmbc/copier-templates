@@ -1,4 +1,4 @@
-{% set __deco = "="*(14 + project_name | length) -%}
+{% set __deco = '='*(14 + project_name | length) -%}
 Contribute to {{project_name}}
 {{__deco}}
 
@@ -8,6 +8,9 @@ How to contribute?
 The contributions made are in the `contrib` folder which has the following structure.
 
 <!-- FOLDER STRUCT. AUTO - START -->
+~~~
++ contrib
+~~~
 <!-- FOLDER STRUCT. AUTO - END -->
 
 

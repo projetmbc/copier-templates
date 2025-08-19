@@ -5,16 +5,17 @@
 # --------------- #
 
 THIS_DIR="$(cd "$(dirname "$0")" && pwd)"
-THIS_FILE=$(basename "$0")
-THIS_FILE=${THIS_FILE%%.*}
+
+THIS_NAME=$(basename "$0")
+THIS_STEM=${THIS_NAME%%.*}
 
 
-# -------------- #
-# -- AUTO-DOC -- #
-# -------------- #
+# ------------ #
+# -- MANUAL -- #
+# ------------ #
 
-USAGE="Usage: bash $THIS_FILE.bash [OPTIONS]"
-TRY="'bash $THIS_FILE.bash --help' for help."
+USAGE="Usage: bash $THIS_NAME [OPTIONS]"
+TRY="'bash $THIS_NAME --help' for help."
 
 HELP="$USAGE
 
