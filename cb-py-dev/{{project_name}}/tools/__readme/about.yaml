@@ -1,6 +1,6 @@
 toc:
   - prologue.md
   - treeview.md
-  - launch.md                     ??????
-  - contrib-struct-in-doc.md
-  - utilities.md                  ??
+  - launch.md
+  - turnkey-tool.md
+  - cbutils.md

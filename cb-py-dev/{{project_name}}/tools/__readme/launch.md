@@ -1,5 +1,5 @@
-XXX
-----
+Le fichier launch.bash
+----------------------------
 
 Le fichier `launch.bash` permet de lancer tous les outils en suivant les règles suivantes.
 
