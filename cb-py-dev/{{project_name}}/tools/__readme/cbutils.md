@@ -1,10 +1,10 @@
 Some basic utilities
 --------------------
 
-The `tools/utilities` folder is a "local" package containing your scripts that can be used by different tools (never forget the DRY principle). It contains the `core` module, which provides certain commonly used tools.
+The `tools/utilities` folder is a "local" package containing your scripts that can be used by different tools (never forget the DRY principle). It contains the `core` module, which provides certain commonly used tools. Please refer to the `README.md` file for details on what is offered.
 
 
-> ***ASTUCE.*** *Let's assume we have the file `my-tool.py` in the `tools` folder. Importing the `utilities` package will be done in an ugly way as follows.*
+> ***TIP.*** *Let's assume we have the file `my-tool.py` in the `tools` folder. Importing the `utilities` package will be done in an ugly way as follows.*
 
 ~~~python
 #!/usr/bin/env python3

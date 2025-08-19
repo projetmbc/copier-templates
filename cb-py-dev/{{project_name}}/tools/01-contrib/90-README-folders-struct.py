@@ -5,8 +5,8 @@ import              sys
 
 sys.path.append(str(Path(__file__).parent.parent))
 
-from cbutils.cnp_code   import *
-from cbutils.need_tests import *
+from cbutils.core.cnp_code   import *
+from cbutils.core.need_tests import *
 
 
 # --------------- #
