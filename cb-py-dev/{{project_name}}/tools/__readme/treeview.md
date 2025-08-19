@@ -1,7 +1,7 @@
-TTTTTTT
-----
+Initial structure of the tools folder
+-------------------------------------
 
-Voici le contenu initial de ce dossier.
+Here is the initial content of the `tools` folder, which serves as the basis for developing "in-house" tools.
 
 ~~~
 + tools
@@ -12,7 +12,10 @@ Voici le contenu initial de ce dossier.
   + utilities
     * README.md
     * __init__.py
-    * need_tests.py
-    * cnp_code.py
-    * common.py
+    * core_common.py
+    * core_cnp_code.py
+    * core_need_tests.py
 ~~~
+
+
+The following sections explain how this set of files and folders works.
