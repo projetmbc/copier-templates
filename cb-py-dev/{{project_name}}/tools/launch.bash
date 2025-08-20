@@ -33,12 +33,22 @@ Options:
 # -- TOOLS -- #
 # ----------- #
 
+###
+# prototype::
+#     #1 : ggggggg
+#     #2 : ggggggg
+###
 print_cli_info() {
     echo "$2"
     exit $1
 }
 
 
+###
+# prototype::
+#     #1 : ggggggg
+#     #2 : ggggggg
+###
 error_exit() {
     printf "\033[91m\033[1m"
 
@@ -49,6 +59,11 @@ error_exit() {
 }
 
 
+###
+# prototype::
+#     #1 : ggggggg
+#     #2 : ggggggg
+###
 print_about() {
     printf "\033[$1"
     echo "$2"
@@ -107,7 +122,7 @@ cd "$THIS_DIR"
 rm -f tools.log
 
 # We ignore any Python file inside the `utilities` folder.
-find . -type f -name "*.py" ! -path "./utilities/*" | sort | while read -r builderfile
+find . -type f -name "*.py" ! -path "./cbutils/*" | sort | while read -r builderfile
 do
     echo ""
 

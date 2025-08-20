@@ -1,9 +1,10 @@
 The launch.bash file
 --------------------
 
-XXX
+The `launch.bash` file is used to launch all the tools. It works as follows.
 
+   1. The files to be launched are all `Python` files. They are sorted naturally using the `sort` command applied to their path relative to the `tools` folder. **This allows for sequential processing.**
 
-Le fichier `launch.bash` permet de lancer tous les outils en suivant les règles suivantes.
+   1. The `tools/cbutils` folder is excluded from the search; it is the only one.
 
-   * Les fichiers trouvés sont ordonnées de façon naturelle via la commande `sort` appliqué à leur chemin relativement au dossier `tools`. Ceci est très utile pour des traitements devant être séquentiels.
+   1. The `-q` option, or `--quick`, is used to ignore files whose names end with `-slow`.
