@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-# Rich colors: python -m rich.color
+# How to choose rich colors?
+#
+# python -m rich.color
 
 from typing import Any
 
