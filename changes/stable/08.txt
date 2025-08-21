@@ -11,13 +11,3 @@
 
 [[:api:]]
 First public vesrion with only the single ''Python'' project template.
-
-
-// ---------- //
-
-
-==
-19
-==
-
-This project will bring together the `copier` templates that I use.
