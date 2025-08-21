@@ -4,8 +4,8 @@
 
 from collections import defaultdict
 
-from .common import *
-
+from .common   import *
+from .log_conf import *
 
 # --------------------------- #
 # -- FILES FOR UNIT TESTS? -- #

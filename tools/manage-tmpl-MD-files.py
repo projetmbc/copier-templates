@@ -1,108 +1,9 @@
 #!/usr/bin/env python3
 
-import                   logging
-from rich.logging import RichHandler
-from rich.console import Console
+from cbutils.common   import *
+from cbutils.log_conf import *
 
 from multimd import Builder, Path
-
-
-# ------------------------------- #
-# -- LOGGING "DYNAMIC" CONFIG. -- #
-# ------------------------------- #
-
-LOG_FILE = "tools.log"
-
-
-###
-# XXXXXXX
-###
-class FileFormatter(logging.Formatter):
-    def format(self, record):
-        original_message = record.getMessage()
-        cleaned_message  = re.sub(r'\[.*?\]', '', original_message)
-
-        record.msg        = cleaned_message
-        formatted_message = super().format(record)
-        record.msg        = original_message
-
-        return formatted_message
-
-
-###
-# XXXXXXX
-###
-class ColorFilter(logging.Filter):
-    def filter(self, record):
-        original_levelname = record.levelname
-
-        if record.levelno >= logging.CRITICAL:
-            record.msg = f"[black on wheat1]{record.msg}[/black on wheat1]"
-
-        elif record.levelno >= logging.ERROR:
-            record.msg = f"[bright_red]{record.msg}[/bright_red]"
-
-        elif record.levelno >= logging.WARNING:
-            record.msg = f"[dark_goldenrod]{record.msg}[/dark_goldenrod]"
-
-        return True
-
-
-###
-# prototype::
-#     no_color  : set to ''False'', the log information will be
-#                 printed in color; otherwise, it will be printed
-#                 in black and white.
-#
-#     :action: the function lives up to its name...
-###
-def setup_logging(no_color = False) -> None:
-# Terminal handler
-#
-# ''color_system = "auto"'' detects whether the output is a real
-# terminal. If not—such as when output is redirected via a pipe—no
-# color is used
-    console = Console(
-        stderr=True,
-        color_system=None if no_color else "auto"
-    )
-
-# File handler
-    file_handler = logging.FileHandler(
-        LOG_FILE,
-        mode="a"
-    )
-    file_handler.setLevel(logging.ERROR)
-
-    file_formatter = FileFormatter(
-        "%(asctime)s [%(levelname)s] %(message)s"
-    )
-    file_handler.setFormatter(file_formatter)
-
-# Terminal handler
-    term_handler = RichHandler(
-        console=console,
-        rich_tracebacks=True,
-        markup=True
-    )
-    term_handler.setLevel(logging.INFO)
-
-# Apply global config
-    logging.basicConfig(
-# Resetting configurations
-        force=True,
-        level=logging.INFO,
-        handlers=[term_handler, file_handler],
-    )
-
-# Appliquer le filtre UNIQUEMENT au gestionnaire de la console
-    term_handler.addFilter(ColorFilter())
-
-
-###
-# XXXXXXX
-###
-setup_logging()
 
 
 # --------------- #
@@ -112,8 +13,6 @@ setup_logging()
 THIS_DIR = Path(__file__).parent
 COPIER_TMPL_DIR = THIS_DIR.parent
 
-
-TAG_DEBUG_FOLDER = 'x-debug-x/'
 
 PARENTS_KEPT = [
     TAG_COPIER := 'copier-templates',
@@ -128,7 +27,8 @@ TAG_WARNING = 'warning'
 
 README_DIRS = [
     '__readme',
-    'readme',
+    TAG_README:= 'readme',
+    '__manual',
 ]
 
 
@@ -136,18 +36,13 @@ README_DIRS = [
 # -- TOOLS -- #
 # ----------- #
 
-def get_relpath(readme: Path) -> bool:
-    global COPIER_TMPL_DIR
+def get_md_file(md_dir: Path) -> Path:
+    name = md_dir.name
+    name = name.replace('_', '')
+    name = name.upper()
 
-    return readme.relative_to(COPIER_TMPL_DIR)
+    return md_dir.parent / f"{name}.md"
 
-
-def ignore_this_readme(readme: Path) -> bool:
-    global TAG_DEBUG_FOLDER
-
-    relpath = get_relpath(readme)
-
-    return str(relpath).startswith(TAG_DEBUG_FOLDER)
 
 def keep_this_readme(readme: Path) -> bool:
     return readme.parent.name in PARENTS_KEPT
@@ -176,9 +71,10 @@ def hidden_readme_folder(readme: Path) -> Path:
 
 
 def log_print(
-    about : str,
-    folder: str| Path,
-    kind  : str = TAG_INFO,
+    md_name: str,
+    about  : str,
+    folder : str| Path,
+    kind   : str = TAG_INFO,
 ):
     match kind:
         case "info":
@@ -193,7 +89,7 @@ def log_print(
     folder = "main" if str(folder) == '.' else f"'{folder}'"
 
     logger(
-        f"README.md {about} in the {folder} folder."
+        f"{md_name}.md {about} in the {folder} folder."
     )
 
 
@@ -203,43 +99,58 @@ def log_print(
 
 for readme in COPIER_TMPL_DIR.rglob('README.md'):
 # Ignore me.
-    if ignore_this_readme(readme):
+    if is_debug(
+        path       = readme,
+        copier_dir = COPIER_TMPL_DIR
+    ):
         continue
 
 # Remove me.
     if not keep_this_readme(readme):
         log_print(
-            kind   = TAG_WARNING,
-            about  = "removed",
-            folder = get_relpath(readme),
+            kind    = TAG_WARNING,
+            md_name = TAG_README,
+            about   = "removed",
+            folder  = get_relpath(readme),
         )
 
         readme.unlink()
 
 
-# ------------------------------- #
-# -- BUILD WANTED README FILES -- #
-# ------------------------------- #
+# --------------------------- #
+# -- BUILD WANTED MD FILES -- #
+# --------------------------- #
 
 for dirname in README_DIRS:
-    for readme_dir in COPIER_TMPL_DIR.rglob(dirname):
+    for md_dir in COPIER_TMPL_DIR.rglob(dirname):
 # Ignore me.
-        if (
-            ignore_this_readme(readme_dir)
-            or
-            not keep_this_readme(readme_dir)
+        if is_debug(
+            path       = md_dir,
+            copier_dir = COPIER_TMPL_DIR
+        ) or (
+            md_dir.name == TAG_README
+            and
+            not keep_this_readme(md_dir)
         ):
             continue
 
 # Compile me.
+        md_file = get_md_file(
+            md_dir
+        )
+
         log_print(
-            about  = "compilation",
-            folder = get_relpath(readme_dir.parent),
+            about   = "compilation",
+            md_name = md_file.stem,
+            folder  = get_relpath(
+                path       = md_dir.parent,
+                copier_dir = COPIER_TMPL_DIR
+            ),
         )
 
         mybuilder = Builder(
-            src   = readme_dir,
-            dest  = readme_dir.parent / "README.md",
+            src   = md_dir,
+            dest  = md_file,
             erase = True
         )
 

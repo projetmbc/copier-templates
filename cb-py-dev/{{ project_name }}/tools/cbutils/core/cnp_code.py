@@ -2,6 +2,7 @@
 
 # from rich import print
 
+from .log_conf   import *
 from .common     import *
 from .need_tests import *
 

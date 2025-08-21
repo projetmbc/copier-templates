@@ -29,18 +29,13 @@ Here is the initial content of the `tools` folder proposed by cb-py-dev copier t
 
 ~~~
 + tools
-  * launch.bash
-  * README.md
   + 01-contrib
     * 90-README-folders-struct.py
-  + utilities
-    * README.md
-    * __init__.py
-    + core/
-      * __init__.py
-      * common.py
-      * cnp_code.py
-      * need_tests.py
+  + cbutils
+    + core
+  * launch.bash
+  * 90-update-READMEs.py
+  * README.md
 ~~~
 
 The following sections explain how this set of files and folders works.
