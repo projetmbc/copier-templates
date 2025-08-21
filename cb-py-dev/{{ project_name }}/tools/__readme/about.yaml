@@ -2,5 +2,6 @@ toc:
   - prologue.md
   - treeview.md
   - launch.md
-  - turnkey-tool.md
+  - turnkey-tools.md
+  - turnkey-tools/
   - cbutils.md

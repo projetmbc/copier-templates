@@ -8,13 +8,21 @@ The `tools/cbutils` folder is a "local" package containing your scripts that can
 
 XXXX
 
+
+
+
+
+
 ---
 
-> ***NOTE.*** *Voir le fichier `cbutils/core/MANUAL.md` présente les fontions proposés par le module `cbutils.core`.*
+
+> ***NOTE.*** *The file `cbutils/core/MANUAL.md` presents the functions offered by the `cbutils.core` module.*
+
 
 ---
 
-> ***TIP.*** *Let's assume we have the file `my-tool.py` in the `tools` folder. Importing the `cbutils` package can be done in an ugly way as follows.*
+
+> ***TIP.*** *Let's assume that the file `my-tool.py` is located directly in the `tools` folder. The `cbutils` package can be imported in a somewhat inelegant but functional manner, as follows.*
 
 ~~~python
 #!/usr/bin/env python3
@@ -22,15 +30,14 @@ XXXX
 from pathlib import Path
 import sys
 
-# We go back as many levels as necessary via the `parent`
-# attribute (just one level in our case).
+# We go back as many levels as necessary via the `parent` attribute
+# (just one level in our case).
 _tools_dir = Path(__file__).parent
 
 # `sys.path` is a list of strings.
 sys.path.append(str(_tools_dir))
 
-# Now, everything works as if we had installed the `cbutils`
-# package.
+# Now everything works as if we had installed the `cbutils` package.
 import cbutils
 
 # This is where your coding begins.

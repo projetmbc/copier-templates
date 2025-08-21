@@ -3,42 +3,66 @@
 # --------------- #
 
 project_name:
-  type: str
+  type     : str
+  help     : Project name (mandatory data).
+  validator: |
+    {% if project_name == ''
+       or project_name != project_name.strip() %}
+      Stripped and not empty!
+    {% endif %}
+
+python_name:
+  type     : str
+  help     : Python name (mandatory data).
+  default  : |
+    {% from 'slugify.jinja' import pyslugify -%}
+    {{ pyslugify(project_name) -}}
+  validator: |
+    {% from 'slugify.jinja' import pyslugify %}
+    {% if python_name != pyslugify(python_name) %}
+      Need a Python module name!
+    {% endif %}
 
 desc:
-    type: str
-    validator: "{% if not desc  %}Cannot be empty!{% endif %}"
+  type     : str
+  help     : Short description (mandatory data).
+  validator: |
+    {% if desc == ''
+       or desc != desc.strip() %}
+      Stripped and not empty!
+    {% endif %}
 
 version:
-    type: str
-    default: 0.0.0-alpha
+  type   : str
+  default: 0.0.0-alpha
 
 acronym:
-    type: str
-    help: |
-      Describe the choice of the project name:
-         if this is unnecessary, leave this field blank.
+  type: str
+  help: |
+    Explain the choice of the project name.
+       You can leave this field blank.
 
 
 # ------------------------- #
 # -- SETTINGS FOR UPDATE -- #
 # ------------------------- #
 
-# Files that will be changed by the user.
+# No update of files that will be changed by the user.
 _skip_if_exists:
   - "TODO-FR.txt"
-  - "README.md"
+  - readme/prologue.md
+  - readme/about.md
 
-#
+# Excluded from the user's template.
 _exclude:
 # -- ALWAYS! -- #
   - "copier.yaml"
   - ".*"
 # -- SPECIFIC -- #
-  - "*.log"
-  - "__readme"
+  - "__manual"
   - "__pycache__"
-  - "README.md"
+  - "*.log"
+  - slugify
 
 
 # -------------------------- #
@@ -46,6 +70,8 @@ _exclude:
 # -------------------------- #
 
 _message_after_copy: |
-  Your `CB` single Python project "{{ project_name }}" has been created successfully! Good coding!
+  `CB` single Python project "{{ project_name }}" created with success.
 
-  NOTE. Use the `multimd` Python project to write your README.md files.
+  Happy coding!
+
+  NOTE. Use `multimd` Python project to write the README.md files.
