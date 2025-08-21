@@ -1,23 +1,51 @@
+# --------------- #
+# -- VARIABLES -- #
+# --------------- #
+
 project_name:
-    type: str
-#     help: What is the project name?
+  type: str
 
 desc:
     type: str
+    validator: "{% if not desc  %}Cannot be empty!{% endif %}"
+
+version:
+    type: str
+    default: 0.0.0-alpha
 
 acronym:
     type: str
+    help: |
+      Describe the choice of the project name:
+         if this is unnecessary, leave this field blank.
 
 
-# _skip_if_exists:
-#   - "TODO-FR.txt"
-#   - "README.md"
+# ------------------------- #
+# -- SETTINGS FOR UPDATE -- #
+# ------------------------- #
 
+# Files that will be changed by the user.
+_skip_if_exists:
+  - "TODO-FR.txt"
+  - "README.md"
+
+#
 _exclude:
-# ALWAYS!
+# -- ALWAYS! -- #
   - "copier.yaml"
   - ".*"
-# EXTRA CHOICES...
+# -- SPECIFIC -- #
   - "*.log"
   - "__readme"
   - "__pycache__"
+  - "README.md"
+
+
+# -------------------------- #
+# -- COMMUNITY MANAGEMENT -- #
+# -------------------------- #
+
+_message_after_copy: |
+  Your `CB` single Python project "{{ project_name }}" has been created successfully! Good coding!
+
+  NOTE. Use the `multimd` Python project to write your README.md files.
