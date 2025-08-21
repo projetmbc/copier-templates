@@ -126,9 +126,28 @@ TAG_INFO    = 'info'
 TAG_WARNING = 'warning'
 
 
+README_DIRS = [
+    '__readme',
+    'readme',
+]
+
+
 # ----------- #
 # -- TOOLS -- #
 # ----------- #
+
+def get_relpath(readme: Path) -> bool:
+    global COPIER_TMPL_DIR
+
+    return readme.relative_to(COPIER_TMPL_DIR)
+
+
+def ignore_this_readme(readme: Path) -> bool:
+    global TAG_DEBUG_FOLDER
+
+    relpath = get_relpath(readme)
+
+    return str(relpath).startswith(TAG_DEBUG_FOLDER)
 
 def keep_this_readme(readme: Path) -> bool:
     return readme.parent.name in PARENTS_KEPT
@@ -180,50 +199,48 @@ def log_print(
 
 # ---------------------------------- #
 # -- REMOVE UNWANTED README FILES -- #
-# -- &                            -- #
-# -- BUILD WANTED README FILES    -- #
 # ---------------------------------- #
 
 for readme in COPIER_TMPL_DIR.rglob('README.md'):
-    relpath = readme.relative_to(COPIER_TMPL_DIR)
-
-    if str(relpath).startswith(TAG_DEBUG_FOLDER):
+# Ignore me.
+    if ignore_this_readme(readme):
         continue
 
-# Keep me.
-    if keep_this_readme(readme):
-        if not compile_this_readme(readme):
-            log_print(
-                about  = "static",
-                folder = relpath.parent,
-            )
+# Remove me.
+    if not keep_this_readme(readme):
+        log_print(
+            kind   = TAG_WARNING,
+            about  = "removed",
+            folder = get_relpath(readme),
+        )
 
+        readme.unlink()
+
+
+# ------------------------------- #
+# -- BUILD WANTED README FILES -- #
+# ------------------------------- #
+
+for dirname in README_DIRS:
+    for readme_dir in COPIER_TMPL_DIR.rglob(dirname):
+# Ignore me.
+        if (
+            ignore_this_readme(readme_dir)
+            or
+            not keep_this_readme(readme_dir)
+        ):
             continue
 
 # Compile me.
         log_print(
             about  = "compilation",
-            folder = relpath.parent,
+            folder = get_relpath(readme_dir.parent),
         )
-
-        src = hidden_readme_folder(readme)
-
-        if not src.is_dir():
-            src = readme_folder(readme)
 
         mybuilder = Builder(
-            src   = src,
-            dest  = readme,
+            src   = readme_dir,
+            dest  = readme_dir.parent / "README.md",
             erase = True
         )
+
         mybuilder.build()
-
-# Remove me.
-    else:
-        log_print(
-            kind   = TAG_WARNING,
-            about  = "removed",
-            folder = relpath.parent,
-        )
-
-        readme.unlink()

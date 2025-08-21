@@ -1,4 +1,3 @@
-XXX
-----------------------------
+### Un projet isolé
 
-YYY
+L'organisation proposée est la suivante.
