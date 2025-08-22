@@ -29,9 +29,11 @@ def add_missing_dir(path : Path) -> None:
 
         logging.warning(f"Folder added: '{path}'")
 
-def remove_dir(path : Path) -> None:
+def empty_dir(path : Path) -> None:
+    add_missing_dir(path)
+
     if path.is_dir():
-        logging.warning(f"Removed: '{path}'")
+        logging.warning(f"Emptying folder: '{path}'")
 
         for root, dirs, files in path.walk(top_down = False):
             for name in files:

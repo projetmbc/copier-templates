@@ -73,8 +73,7 @@ for dest_folder in COPIER_TMPL_DIR.glob(f"**/tools"):
 # Start with an empty core folder.
     core_folder = dest_folder / "cbutils" / "core"
 
-    remove_dir(core_folder)
-    add_missing_dir(core_folder)
+    empty_dir(core_folder)
 
 # Update the files.
     for model_file in TO_UPDATE:
@@ -86,5 +85,5 @@ for dest_folder in COPIER_TMPL_DIR.glob(f"**/tools"):
 
         model_code = model_file.read_text()
 
-
+        dest_file.touch()
         dest_file.write_text(model_code)

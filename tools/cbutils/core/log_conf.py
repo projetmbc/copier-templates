@@ -119,7 +119,7 @@ def setup_logging(no_color = False) -> None:
 
 
 ###
-# Let's apply our configurations.
+# Let's activate our configurations.
 ###
 setup_logging()
 
