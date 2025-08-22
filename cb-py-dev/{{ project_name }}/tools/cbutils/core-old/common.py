@@ -28,10 +28,6 @@ from black import (
 # -- CONSTANTS -- #
 # --------------- #
 
-TAG_INIT     = "__init__"
-INIT_FILE    = f"{TAG_INIT}.py"
-INIT_CONTENT = "#!/usr/bin/env python3\n"
-
 TAG_CONSTANTS = "constants"
 TAG_SIGNS     = "signatures"
 TAG_SPECS     = "specs"
@@ -43,15 +39,6 @@ SPECS_FILE     = f"{TAG_SPECS}.py"
 FLAVOURS_FILE  = f"{TAG_FLAVOURS}.py"
 
 TAG_OPTIONAL   = '*'
-
-TAG_STATUS = "status"
-TAG_OK     = "ok"
-
-TAG_BAD_VALIDATION = "bad validation"
-TAG_FILE           = "file"
-
-TAG_CRITICAL = "critical"
-TAG_WARNING  = "warning"
 
 META_TAGS = [
     TAG_SPECS_ALT_ALL   := "__ALT_ALL__",
@@ -86,31 +73,6 @@ TEMPL_CODE_HEADER = """
 # ---------------------- #
 # -- LOGGING MESSAGES -- #
 # ---------------------- #
-
-###
-# XXXXXXX
-###
-def log_title(
-    title,
-    desc,
-):
-    return f"{title.upper()} - {desc}"
-
-###
-# XXXXXXX
-###
-def message_creation_update(
-    context,
-    upper   = True,
-    plurial = True,
-):
-    if upper:
-        context = context.upper()
-
-    plurial = 's' if plurial else ''
-
-    return f"{context} code{plurial}: creation or update."
-
 
 def raise_validation_error(
     key,
@@ -204,86 +166,8 @@ def get_accepted_paths(
 
 
 # --------------------- #
-# -- FOLDERS / FILES -- #
-# --------------------- #
-
-def add_missing_dir(dirpath):
-    if not dirpath.is_dir():
-        dirpath.mkdir(
-            parents  = True,
-            exist_ok = True
-        )
-
-        logging.warning(f"Folder added: '{dirpath}'")
-
-
-def add_missing_init(srcdir):
-    # Nothing left expect the addition of an ''__init__.py'' file.
-    initfile = srcdir / INIT_FILE
-
-    if not initfile.is_file():
-        initfile.touch()
-        initfile.write_text(INIT_CONTENT)
-
-        logging.info("__init__.py file added.")
-
-
-def add_black_pyfile(
-    code,
-    file
-):
-    file.write_text(code)
-
-    format_file_in_place(
-        file,
-        fast       = False,
-        mode       = FileMode(),
-        write_back = WriteBack.YES,
-    )
-
-
-def append_black_pyfile(
-    code,
-    file,
-    nbempty = 1
-):
-    code = format_str(
-        code,
-        mode = FileMode()
-    )
-    code = '\n' * nbempty + code
-    code = file.read_text() + code
-
-    file.write_text(code)
-
-
-# --------------------- #
 # -- PYTHON ANALYSIS -- #
 # --------------------- #
-
-def get_parse_signature(
-    file,
-    func_name
-):
-    src_code  = Path(file).read_text()
-    tree      = ast.parse(src_code)
-    arguments = []
-
-    for node in ast.walk(tree):
-        if (
-            isinstance(node, ast.FunctionDef)
-            and
-            node.name == func_name
-        ):
-            args = [arg.arg for arg in node.args.args]
-
-            # for i, default in enumerate(node.args.defaults, start=len(args)-len(node.args.defaults)):
-            #     args[i] += f"={ast.unparse(default)}"
-
-            return args
-
-    return None
-
 
 def get_metatags(
     allvars,
@@ -332,17 +216,3 @@ def get_name_required(name):
         name        = name
 
     return name, is_required
-
-
-
-# ----------- #
-# -- TESTS -- #
-# ----------- #
-
-if __name__ == "__main__":
-    setup_logging()
-    logging.info("One information.")
-    # logging.debug("Debugging?")
-    logging.warning("One warning!")
-    logging.error("An error!")
-    logging.critical("A critical error!")

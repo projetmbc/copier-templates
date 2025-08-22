@@ -16,9 +16,9 @@ def get_relpath(
     return path.relative_to(copier_dir)
 
 
-# --------------------- #
-# -- FOLDERS / FILES -- #
-# --------------------- #
+# ------------------------------ #
+# -- CREATION, DELETION & CO. -- #
+# ------------------------------ #
 
 def add_missing_dir(path : Path) -> None:
     if not path.is_dir():
