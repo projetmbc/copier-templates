@@ -19,7 +19,7 @@ TRY="'bash $THIS_NAME --help' for help."
 
 HELP="$USAGE
 
-  Launch all Python buider files.
+  Launch all project tools (coded in Python).
 
 Options:
   -q, --quick Any builder named '...-slow.py' will be ignored.
@@ -35,8 +35,8 @@ Options:
 
 ###
 # prototype::
-#     #1 : ggggggg
-#     #2 : ggggggg
+#     #1 : an error code.
+#     #2 : a message.
 ###
 print_cli_info() {
     echo "$2"
@@ -46,8 +46,8 @@ print_cli_info() {
 
 ###
 # prototype::
-#     #1 : ggggggg
-#     #2 : ggggggg
+#     #1 : a directory path.
+#     #2 : a file name.
 ###
 error_exit() {
     printf "\033[91m\033[1m"
@@ -61,8 +61,8 @@ error_exit() {
 
 ###
 # prototype::
-#     #1 : ggggggg
-#     #2 : ggggggg
+#     #1 : a terminal colour code.
+#     #2 : a message.
 ###
 print_about() {
     printf "\033[$1"
@@ -118,7 +118,8 @@ fi
 # Let's work locally.
 cd "$THIS_DIR"
 
-# Logging must be done in the `tools.log` file, and we erase it at each launching.
+# Logging must be done in the `tools.log` file, and we erase it
+# at each launching.
 rm -f tools.log
 
 # We ignore any Python file inside the `utilities` folder.

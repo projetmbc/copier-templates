@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
+from cbutils.core.common   import *
+from cbutils.core.log_conf import *
+
 from cbutils.common   import *
-from cbutils.log_conf import *
 
 from multimd import Builder, Path
 
@@ -99,7 +101,7 @@ def log_print(
 
 for readme in COPIER_TMPL_DIR.rglob('README.md'):
 # Ignore me.
-    if is_debug(
+    if is_debug_folder(
         path       = readme,
         copier_dir = COPIER_TMPL_DIR
     ):
@@ -109,9 +111,12 @@ for readme in COPIER_TMPL_DIR.rglob('README.md'):
     if not keep_this_readme(readme):
         log_print(
             kind    = TAG_WARNING,
-            md_name = TAG_README,
+            md_name = TAG_README.upper(),
             about   = "removed",
-            folder  = get_relpath(readme),
+            folder  = get_relpath(
+                path       = readme,
+                copier_dir = COPIER_TMPL_DIR
+            ),
         )
 
         readme.unlink()
@@ -124,7 +129,7 @@ for readme in COPIER_TMPL_DIR.rglob('README.md'):
 for dirname in README_DIRS:
     for md_dir in COPIER_TMPL_DIR.rglob(dirname):
 # Ignore me.
-        if is_debug(
+        if is_debug_folder(
             path       = md_dir,
             copier_dir = COPIER_TMPL_DIR
         ) or (

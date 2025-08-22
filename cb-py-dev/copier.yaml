@@ -60,6 +60,7 @@ _exclude:
   - ".*"
 # -- SPECIFIC -- #
   - "__manual"
+  - "__readme"
   - "__pycache__"
   - "*.log"
   - slugify

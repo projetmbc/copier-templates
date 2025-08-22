@@ -1,3 +1,3 @@
-### XXXX
+### Updating README.md files via multimd
 
-`90-update-READMEs.py` YYYY
+The `90-update-READMEs.py` script searches for `readme` folders. For each folder found, the `Python` module `multimd` is invoked to generate a `README.md` file alongside the `readme` folder.

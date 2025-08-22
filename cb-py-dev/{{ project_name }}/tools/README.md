@@ -17,8 +17,8 @@ The `tools` folder contains `Python` tools that are useful for developing the pr
 - [Initial structure of the tools folder](#MULTIMD-TOC-ANCHOR-0)
 - [The launch.bash file](#MULTIMD-TOC-ANCHOR-1)
 - [Turnkey tools](#MULTIMD-TOC-ANCHOR-2)
-    - [XXXX](#MULTIMD-TOC-ANCHOR-3)
-    - [XXXX](#MULTIMD-TOC-ANCHOR-4)
+    - [Updating README.md files via multimd](#MULTIMD-TOC-ANCHOR-3)
+    - [Contribution file documentation](#MULTIMD-TOC-ANCHOR-4)
 - [Some basic utilities](#MULTIMD-TOC-ANCHOR-5)
 
 <a id="MULTIMD-TOC-ANCHOR-0"></a>
@@ -55,26 +55,29 @@ Turnkey tools <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><
 -------------
 
 <a id="MULTIMD-TOC-ANCHOR-3"></a>
-### XXXX <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
+### Updating README.md files via multimd <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
 
-`90-update-READMEs.py` YYYY
+The `90-update-READMEs.py` script searches for `readme` folders. For each folder found, the `Python` module `multimd` is invoked to generate a `README.md` file alongside the `readme` folder.
 
 <a id="MULTIMD-TOC-ANCHOR-4"></a>
-### XXXX <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
+### Contribution file documentation <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
 
-`01-contrib/90-README-folders-struct.py` automatically updates the `contrib` folder treeview inside the file `contrib/README.md`.
+The directory structure of the `contrib` folder is specified in the `contrib/README.md` file. The script
+`01-contrib/90-README-folders-struct.py` is designed to update this printed structure automatically.
 
 <a id="MULTIMD-TOC-ANCHOR-5"></a>
 Some basic utilities <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
 --------------------
 
-The `tools/cbutils` folder is a "local" package containing your scripts that can be used by different tools (never forget the DRY principle). It contains the `core` module, which provides certain commonly used tools. Please refer to the `README.md` file for details on what is offered.
-
-XXXX
+The `tools/cbutils` folder is a "local" module for specific scripts intended for use by several tools (never forget the `DRY` principle). It contains the `core` submodule, which brings together some very commonly used tools.
 
 ---
 
-> ***NOTE.*** *The file `cbutils/core/MANUAL.md` presents the functions offered by the `cbutils.core` module.*
+> ***NOTE.*** *The file `tools/cbutils/core/MANUAL.md` provides a quick overview of the `core` submodule.*
+
+---
+
+> ***WARNING!*** *If you think the `core` submodule could be improved, please submit your suggestions via the `copier-templates` project at https://github.com/projetmbc/copier-templates. You will have to change the folder `tools/cbutils/core` of the repository, and not of the template.*
 
 ---
 
@@ -88,10 +91,10 @@ import sys
 
 # We go back as many levels as necessary via the `parent` attribute
 # (just one level in our case).
-_tools_dir = Path(__file__).parent
+TOOLS_DIR = Path(__file__).parent
 
 # `sys.path` is a list of strings.
-sys.path.append(str(_tools_dir))
+sys.path.append(str(TOOLS_DIR))
 
 # Now everything works as if we had installed the `cbutils` package.
 import cbutils

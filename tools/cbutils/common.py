@@ -2,6 +2,8 @@
 
 from pathlib import Path
 
+from cbutils.core.common import *
+
 
 # --------------- #
 # -- CONSTANTS -- #
@@ -14,14 +16,7 @@ TAG_DEBUG_FOLDER = 'x-debug-x/'
 # -- TOOLS -- #
 # ----------- #
 
-def get_relpath(
-    path      : Path,
-    copier_dir: Path
-) -> bool:
-    return path.relative_to(copier_dir)
-
-
-def is_debug(
+def is_debug_folder(
     path      : Path,
     copier_dir: Path
 ) -> bool:

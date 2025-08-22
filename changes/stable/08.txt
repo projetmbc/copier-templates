@@ -2,7 +2,7 @@
 
 
 ==
-21  (1.0.0)   ????
+23  (1.0.0)   ????
 ==
 
 -----
@@ -10,4 +10,4 @@
 -----
 
 [[:api:]]
-First public vesrion with only the single ''Python'' project template.
+First public version, starting with the "single" \python project template.

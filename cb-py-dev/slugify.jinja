@@ -1,3 +1,3 @@
 {% macro pyslugify(value) -%}
-  {{ value | lower | replace(' ', '_') | replace('-', '_') | replace('.', '_') -}}
+  {{ value | lower | regex_replace('[\s\-\.]+', '_') -}}
 {%- endmacro -%}

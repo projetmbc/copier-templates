@@ -3,8 +3,8 @@
 from pathlib import Path
 import              sys
 
-_tools_dir = Path(__file__).parent.parent
-sys.path.append(str(_tools_dir))
+TOOLS_DIR = Path(__file__).parent.parent
+sys.path.append(str(TOOLS_DIR))
 
 from cbutils.core.cnp_code import *
 
@@ -48,13 +48,14 @@ for tag in [
 ]:
     if content.count(tag) != 1:
         raise ValueError(
-            f"use the following special comment only once.\n{tag}"
+            f"use the following special comment only once:\n{tag}"
         )
 
-before, _, after = content.partition(f"\n{TAG_STRUCT_START}")
-_     , _, after = after.partition(f"{TAG_STRUCT_END}\n")
+before, _ , after = content.partition(f"\n{TAG_STRUCT_START}")
 
-# The list of folders.
+_ , _ , after = after.partition(f"{TAG_STRUCT_END}\n")
+
+# The sorted list of folders.
 folders = [
     p.name
     for p in CONTRIB_DIR.glob('*')

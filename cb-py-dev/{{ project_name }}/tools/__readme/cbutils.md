@@ -1,22 +1,19 @@
 Some basic utilities
 --------------------
 
-The `tools/cbutils` folder is a "local" package containing your scripts that can be used by different tools (never forget the DRY principle). It contains the `core` module, which provides certain commonly used tools. Please refer to the `README.md` file for details on what is offered.
-
-
-
-
-XXXX
-
-
-
-
+The `tools/cbutils` folder is a "local" module for specific scripts intended for use by several tools (never forget the `DRY` principle). It contains the `core` submodule, which brings together some very commonly used tools.
 
 
 ---
 
 
-> ***NOTE.*** *The file `cbutils/core/MANUAL.md` presents the functions offered by the `cbutils.core` module.*
+> ***NOTE.*** *The file `tools/cbutils/core/MANUAL.md` provides a quick overview of the `core` submodule.*
+
+
+---
+
+
+> ***WARNING!*** *If you think the `core` submodule could be improved, please submit your suggestions via the `copier-templates` project at https://github.com/projetmbc/copier-templates. You will have to change the folder `tools/cbutils/core` of the repository, and not of the template.*
 
 
 ---
@@ -32,10 +29,10 @@ import sys
 
 # We go back as many levels as necessary via the `parent` attribute
 # (just one level in our case).
-_tools_dir = Path(__file__).parent
+TOOLS_DIR = Path(__file__).parent
 
 # `sys.path` is a list of strings.
-sys.path.append(str(_tools_dir))
+sys.path.append(str(TOOLS_DIR))
 
 # Now everything works as if we had installed the `cbutils` package.
 import cbutils

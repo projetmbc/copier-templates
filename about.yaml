@@ -1,13 +1,12 @@
 project:
-  version: 0.0.0-alpha
+  version: "1.0.0"
 
   desc   : XXX
-  acronym: "YYY"
 
   author: Christophe, BAL
 
   licenses:
-    code  : cc by nc 4.0
+    code  : gpl 3.0 only
     manual: cc by nc 4.0
 
   urls:
