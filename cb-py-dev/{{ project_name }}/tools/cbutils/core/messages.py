@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+from cbutils.core.constants import *
+from cbutils.core.logconf   import *
+
 
 # ----------------------- #
 # -- STANDARD MESSAGES -- #
@@ -40,3 +43,25 @@ def msg_creation_update(
     plurial = 's' if plurial else ''
 
     return f"{context} code{plurial}: creation or update."
+
+
+# ---------------------- #
+# -- LOGGING MESSAGES -- #
+# ---------------------- #
+
+def log_raise_error(
+    exception: Exception,
+    desc     : str,
+    xtra     : str = '',
+) -> None:
+    logging.error(
+        msg_title(
+            TAG_BAD_VALIDATION,
+            desc = desc
+        )
+    )
+
+    if xtra:
+        xtra = f" {xtra}"
+
+    raise exception(f"{desc}{xtra}")

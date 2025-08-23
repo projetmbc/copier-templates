@@ -15,6 +15,8 @@ SHEBANG_PYTHON = "#!/usr/bin/env python3\n"
 # -- CONTRIB. -- #
 # -------------- #
 
+TAG_CONTRIB_DIR = "contrib"
+
 TAG_STATUS = "status"
 TAG_OK     = "ok"
 
