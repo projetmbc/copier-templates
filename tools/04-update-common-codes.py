@@ -53,13 +53,9 @@ def ignore_cbutils(
 # ------------------ #
 
 for dest_folder in COPIER_TMPL_DIR.glob(f"**/tools"):
-    if (
-        dest_folder.parent == COPIER_TMPL_DIR
-        or
-        is_debug_folder(
-            path       = dest_folder,
-            copier_dir = COPIER_TMPL_DIR
-        )
+    if not_common_folder(
+        path       = dest_folder,
+        copier_dir = COPIER_TMPL_DIR
     ):
         continue
 

@@ -6,7 +6,7 @@ import              sys
 TOOLS_DIR = Path(__file__).parent.parent
 sys.path.append(str(TOOLS_DIR))
 
-from cbutils.core.cnp_code import *
+from cbutils.cnp_code import *
 
 
 # --------------- #

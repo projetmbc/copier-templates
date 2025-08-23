@@ -14,6 +14,14 @@ THIS_DIR        = Path(__file__).parent
 COPIER_TMPL_DIR = THIS_DIR.parent
 
 
+TAG_JINJA_EXT = '.jinja'
+
+JINJA_PATTERNS = [
+    JINJA_PATTERN_CODE:= re.compile(r"({%.*?%})", re.DOTALL),
+    JINJA_PATTERN_VAR := re.compile("{{.*?}}"),
+]
+
+
 PARENTS_KEPT = [
     TAG_COPIER := 'copier-templates',
     TAG_CONTRIB:= 'contrib',
@@ -42,6 +50,23 @@ def get_md_file(md_dir: Path) -> Path:
     name = name.upper()
 
     return md_dir.parent / f"{name}.md"
+
+
+
+def is_md_jinja(md_dir: Path) -> bool:
+    for _ in md_dir.rglob("*.md.jinja"):
+        return True
+
+    return False
+
+def remove_escaped_in_jinja(match: re.Match) -> str:
+    text = match.group(0)
+
+    for c in "_*":
+        text = text.replace(rf'\{c}', c)
+
+    return text
+
 
 
 def keep_this_readme(readme: Path) -> bool:
@@ -89,7 +114,7 @@ def log_print(
     folder = "main" if str(folder) == '.' else f"'{folder}'"
 
     logger(
-        f"{md_name}.md {about} in the {folder} folder."
+        f"{md_name} {about} in the {folder} folder."
     )
 
 
@@ -140,9 +165,12 @@ for dirname in README_DIRS:
 # Compile me.
         md_file = get_md_file(md_dir)
 
+        if is_md_jinja(md_dir):
+            md_file = md_file.parent / f"{md_file.name}{TAG_JINJA_EXT}"
+
         log_print(
             about   = "compilation",
-            md_name = md_file.stem,
+            md_name = md_file.name,
             folder  = get_relpath(
                 subpath  = md_dir.parent,
                 mainpath = COPIER_TMPL_DIR
@@ -156,3 +184,11 @@ for dirname in README_DIRS:
         )
 
         mybuilder.build()
+
+        if md_file.suffix == TAG_JINJA_EXT:
+            code = md_file.read_text()
+
+            for p in JINJA_PATTERNS:
+                code = p.sub(remove_escaped_in_jinja, code)
+
+            md_file.write_text(code)

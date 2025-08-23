@@ -28,3 +28,16 @@ def is_debug_folder(
     )
 
     return str(relpath).startswith(TAG_DEBUG_FOLDER)
+
+def not_common_folder(
+    path      : Path,
+    copier_dir: Path
+) -> bool:
+    return (
+        path.parent == copier_dir
+        or
+        is_debug_folder(
+            path       = path,
+            copier_dir = copier_dir
+        )
+    )

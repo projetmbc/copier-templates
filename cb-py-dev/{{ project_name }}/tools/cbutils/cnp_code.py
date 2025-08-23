@@ -2,22 +2,15 @@
 
 # from rich import print
 
-from .log_conf   import *
-from .common     import *
-from .need_tests import *
+from cbutils.core import *
+
+from cbutils.common     import *
+from cbutils.need_tests import *
 
 
 # --------------- #
 # -- CONSTANTS -- #
 # --------------- #
-
-INIT_FILE    = "__init__.py"
-INIT_CONTENT = "#!/usr/bin/env python3\n"
-
-
-TAG_STATUS = "status"
-TAG_OK     = "ok"
-
 
 PATTERN_SECTION_COMMENT = re.compile(
     r"#\s+-+\s+#\n# --(.*)-- #\n# -+ #\n"
