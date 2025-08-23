@@ -9,8 +9,6 @@
 # prototype::
 #     title : X
 #     desc  : X
-#
-#     return : X
 ###
 def msg_title(
     title: str,
@@ -24,8 +22,6 @@ def msg_title(
 #     context : X
 #     upper   : X
 #     plurial : X
-#
-#     return : X
 ###
 def msg_creation_update(
     context: str,

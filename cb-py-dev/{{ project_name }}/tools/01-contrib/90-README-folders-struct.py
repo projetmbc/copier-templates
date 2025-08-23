@@ -32,7 +32,7 @@ TAB_STRUCT = '\n  + '
 # ----------------- #
 
 logging.info(
-    message_creation_update(
+    msg_creation_update(
         context = f"'{README_FILE.relative_to(SRC_DIR)}' (contribs treeview)",
         upper   = False,
         plurial = False,

@@ -73,7 +73,7 @@ def print_pbs(
         plurial = '' if len(tests) == 1 else 's'
 
         log_print(
-            log_title(
+            msg_title(
                 title = f"{context} testing",
                 desc  = f"{kind.title()} one{plurial}."
             )

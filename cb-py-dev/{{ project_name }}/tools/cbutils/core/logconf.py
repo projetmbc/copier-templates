@@ -15,10 +15,10 @@ LOG_FILE = "tools.log"
 
 RICH_FORMAT_PATTERN = re.compile(r'\[.*?\]')
 
+FSTR_NO_CHANGE      = "{}"
 FSTR_COLOR_WARNING  = "[dark_goldenrod]{}[/dark_goldenrod]"
 FSTR_COLOR_CRITICAL = "[black on wheat1]{}[/black on wheat1]"
 FSTR_COLOR_ERROR    = "[bright_red]{}[/bright_red]"
-FSTR_NO_CHANGE      = "{}"
 
 
 # ---------------- #
@@ -30,7 +30,7 @@ FSTR_NO_CHANGE      = "{}"
 # of message (we use the formatting mark-up ''rich'' language).
 ###
 class ColorFilter(logging.Filter):
-    def filter(self, record):
+    def filter(self, record: logging.LogRecord) -> bool:
         levelno = record.levelno
 
         if levelno >= logging.CRITICAL:
@@ -55,7 +55,7 @@ class ColorFilter(logging.Filter):
 # mark-up ''rich'' language.
 ###
 class FileFormatter(logging.Formatter):
-    def format(self, record):
+    def format(self, record: logging.LogRecord) -> str:
         original_message = record.getMessage()
         cleaned_message  = RICH_FORMAT_PATTERN.sub('', original_message)
 
@@ -78,7 +78,7 @@ class FileFormatter(logging.Formatter):
 #
 #     :action: the function lives up to its name...
 ###
-def setup_logging(no_color = False) -> None:
+def setup_logging(no_color: bool = False) -> None:
 # Terminal handler
 #
 # ''color_system = "auto"'' detects whether the output is a real

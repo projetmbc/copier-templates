@@ -13,8 +13,6 @@ from cbutils.core.logconf import *
 # prototype::
 #     title : X
 #     desc  : X
-#
-#     action : X
 ###
 def add_missing_init(srcdir):
     # Nothing left expect the addition of an ''__init__.py'' file.
@@ -31,8 +29,6 @@ def add_missing_init(srcdir):
 # prototype::
 #     title : X
 #     desc  : X
-#
-#     action : X
 ###
 def add_black_pyfile(
     code,
@@ -52,8 +48,6 @@ def add_black_pyfile(
 # prototype::
 #     title : X
 #     desc  : X
-#
-#     action : X
 ###
 def append_black_pyfile(
     code,
@@ -78,8 +72,6 @@ def append_black_pyfile(
 # prototype::
 #     title : X
 #     desc  : X
-#
-#     return : X
 ###
 def get_parse_signature(
     file,

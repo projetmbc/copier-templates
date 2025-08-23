@@ -86,7 +86,7 @@ def raise_validation_error(
     desc = f"See {key}'{yfile_name}' file: {desc}"
 
     logging.error(
-        log_title(
+        msg_title(
             TAG_BAD_VALIDATION,
             desc = desc
         )

@@ -70,7 +70,7 @@ _exclude:
 # -- COMMUNITY MANAGEMENT -- #
 # -------------------------- #
 
-_message_after_copy: |
+_msg_after_copy: |
   `CB` single Python project "{{ project_name }}" created with success.
 
   Happy coding!

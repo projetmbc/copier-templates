@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
-from cbutils.core.common   import *
-from cbutils.core.log_conf import *
-
-from cbutils.common import *
+from cbutils.core     import *
+from cbutils.pathxtra import *
 
 
 # --------------- #
@@ -21,13 +19,7 @@ TAG_DEBUG_FOLDER = 'x-debug-x/'
 TAG_LAUNCH_FILE = 'launch.bash'
 TAG_MANUAL_FILE = 'MANUAL.md'
 
-TO_UPDATE = [
-# (model_file, model_code, pattern)
-    p
-    for p in CBUTILS_CORE_DIR.glob("*.py")
-]
-
-
+TO_UPDATE  = [p for p in CBUTILS_CORE_DIR.glob("*.py")]
 TO_UPDATE += [
     CBUTILS_CORE_DIR / TAG_MANUAL_FILE,
     THIS_DIR / TAG_LAUNCH_FILE,
@@ -54,6 +46,7 @@ def ignore_cbutils(
         or
         str(relpath).startswith(TAG_DEBUG_FOLDER)
     )
+
 
 # ------------------ #
 # -- UPDATE FILES -- #

@@ -92,7 +92,7 @@ def copy_paste_codes(
         return
 
 # Let's build Python codes.
-    logging.info(message_creation_update(context))
+    logging.info(msg_creation_update(context))
 
     add_missing_dir(srcdir)
 
@@ -112,7 +112,7 @@ def copy_paste_codes(
         something_done = True
 
         logging.info(
-            log_title(
+            msg_title(
                 title = context,
                 desc  = file.name
             )

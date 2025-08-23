@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from cbutils.core.file_folder import *
+from cbutils.core.pathplus import *
 
 
 # --------------- #

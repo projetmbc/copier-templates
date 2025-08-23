@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
-from cbutils.core.common   import *
-from cbutils.core.log_conf import *
-
-from cbutils.common   import *
+from cbutils.core     import *
+from cbutils.pathxtra import *
 
 from multimd import Builder, Path
 
@@ -12,7 +10,7 @@ from multimd import Builder, Path
 # -- CONSTANTS -- #
 # --------------- #
 
-THIS_DIR = Path(__file__).parent
+THIS_DIR        = Path(__file__).parent
 COPIER_TMPL_DIR = THIS_DIR.parent
 
 
@@ -75,7 +73,7 @@ def hidden_readme_folder(readme: Path) -> Path:
 def log_print(
     md_name: str,
     about  : str,
-    folder : str| Path,
+    folder : str | Path,
     kind   : str = TAG_INFO,
 ):
     match kind:
