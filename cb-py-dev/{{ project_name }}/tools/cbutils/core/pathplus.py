@@ -11,14 +11,16 @@ from cbutils.core.logconf import *
 
 ###
 # prototype::
-#     title : X
-#     desc  : X
+#     subpath  : a \1st path
+#     mainpath : a \2nd path
+#
+#     :return: the path of ''subpath'' relative to ''mainpath''.
 ###
 def get_relpath(
-    path      : Path,
-    copier_dir: Path
-) -> bool:
-    return path.relative_to(copier_dir)
+    subpath : Path,
+    mainpath: Path
+) -> Path:
+    return subpath.relative_to(mainpath)
 
 
 # ------------------------------ #
@@ -27,32 +29,46 @@ def get_relpath(
 
 ###
 # prototype::
-#     title : X
-#     desc  : X
+#     folder : a folder path.
+#
+#     :action: if the directory with the path specified doesn't
+#              exist, it is created.
 ###
-def add_missing_dir(path : Path) -> None:
-    if not path.is_dir():
-        path.mkdir(
+def add_missing_dir(folder : Path) -> None:
+    if not folder.is_dir():
+        folder.mkdir(
             parents  = True,
             exist_ok = True
         )
 
-        logging.warning(f"Folder added: '{path}'")
+        logging.warning(f"Folder added: '{folder}'")
 
 
 ###
 # prototype::
-#     title : X
-#     desc  : X
+#     folder : a folder path.
+#
+#     :action: an empty directory with the path specified as
+#              a parameter is obtained at the end of the process
+#              (if the folder does not exist, it will be created).
 ###
-def empty_dir(path : Path) -> None:
-    add_missing_dir(path)
+def empty_dir(folder : Path) -> None:
+# A folder to create.
+    if not folder.is_dir():
+        add_missing_dir(folder)
 
-    if path.is_dir():
-        logging.warning(f"Emptying folder: '{path}'")
+# A folder to empty.
+    else:
+        logging.warning(f"Emptying folder: '{folder}'")
 
-        for root, dirs, files in path.walk(top_down = False):
+# ''top_down=False'' is for visiting subdirectories first, then
+# the parent. Here, tis is required because files must be deleted
+# before their parent dirs.
+        for root, dirs, files in folder.walk(top_down = False):
+# No file must be left.
             for name in files:
                 (root / name).unlink()
+
+# The empty dirs are now removable.
             for name in dirs:
                 (root / name).rmdir()

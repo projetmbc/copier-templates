@@ -7,7 +7,8 @@
 
 TAG_INIT     = "__init__"
 INIT_FILE    = f"{TAG_INIT}.py"
-INIT_CONTENT = "#!/usr/bin/env python3\n"
+
+SHEBANG_PYTHON = "#!/usr/bin/env python3\n"
 
 
 # -------------- #

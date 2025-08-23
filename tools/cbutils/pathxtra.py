@@ -23,8 +23,8 @@ def is_debug_folder(
     global TAG_DEBUG_FOLDER
 
     relpath = get_relpath(
-        path       = path,
-        copier_dir = copier_dir
+        subpath  = path,
+        mainpath = copier_dir
     )
 
     return str(relpath).startswith(TAG_DEBUG_FOLDER)

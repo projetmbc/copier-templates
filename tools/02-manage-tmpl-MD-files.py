@@ -138,16 +138,14 @@ for dirname in README_DIRS:
             continue
 
 # Compile me.
-        md_file = get_md_file(
-            md_dir
-        )
+        md_file = get_md_file(md_dir)
 
         log_print(
             about   = "compilation",
             md_name = md_file.stem,
             folder  = get_relpath(
-                path       = md_dir.parent,
-                copier_dir = COPIER_TMPL_DIR
+                subpath  = md_dir.parent,
+                mainpath = COPIER_TMPL_DIR
             ),
         )
 

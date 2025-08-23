@@ -1,43 +1,52 @@
 #!/usr/bin/env python3
 
+import              ast
 from pathlib import Path
+
+from black import (
+    FileMode,
+    format_file_in_place,
+    format_str,
+    WriteBack,
+)
 
 from cbutils.core.logconf import *
 
 
-# ----------- #
-# -- XXX -- #
-# ----------- #
+# ----------------- #
+# -- PYTHON CODE -- #
+# ----------------- #
 
 ###
 # prototype::
-#     title : X
-#     desc  : X
+#     folder : a folder path.
 #
-#     action : X
+#     :action: add an path::''init__.py'' file to the folder if one
+#              does not already exist.
 ###
-def add_missing_init(srcdir):
-    # Nothing left expect the addition of an ''__init__.py'' file.
-    initfile = srcdir / INIT_FILE
+def add_missing_init(folder: Path) -> None:
+    initfile = folder / INIT_FILE
 
     if not initfile.is_file():
         initfile.touch()
-        initfile.write_text(INIT_CONTENT)
+        initfile.write_text(SHEBANG_PYTHON)
 
-        logging.info("__init__.py file added.")
+        logging.info(f"{INIT_FILE} file added.")
 
 
 ###
 # prototype::
-#     title : X
-#     desc  : X
+#     code : a \python code.
+#     file : a file path.
 #
-#     action : X
+#     :action: creation of the file with the \python code given as
+#              a parameter as its content, formatted by the \black
+#              package.
 ###
 def add_black_pyfile(
-    code,
-    file
-):
+    code: Path,
+    file: Path
+) -> None:
     file.write_text(code)
 
     format_file_in_place(
@@ -50,16 +59,19 @@ def add_black_pyfile(
 
 ###
 # prototype::
-#     title : X
-#     desc  : X
+#     code    : :see: add_black_pyfile
+#     file    : :see: add_black_pyfile
+#     nbempty : the number of empty lines added before the code
+#               that will be added.
 #
-#     action : X
+#     :action: append to the file the \python code formatted by the
+#              \black package.
 ###
 def append_black_pyfile(
-    code,
-    file,
-    nbempty = 1
-):
+    code   : Path,
+    file   : Path,
+    nbempty: int = 1
+) -> None:
     code = format_str(
         code,
         mode = FileMode()
@@ -76,15 +88,20 @@ def append_black_pyfile(
 
 ###
 # prototype::
-#     title : X
-#     desc  : X
+#     file         : a file path.
+#     func_name    : a \func name.
+#     ignore_error : set to ''True'', this indicates to return
+#                    ''None'' if no \func has the given name;
+#                    otherwise, a ''ValueError'' is raised.
 #
-#     return : X
+#     :return: the list of its \args in case of success; otherwise,
+#              see the \desc of the \arg ''ignore_error''.
 ###
 def get_parse_signature(
-    file,
-    func_name
-):
+    file        : Path,
+    func_name   : str,
+    ignore_error: bool = False,
+) -> list[str] | None:
     src_code  = Path(file).read_text()
     tree      = ast.parse(src_code)
     arguments = []
@@ -97,9 +114,13 @@ def get_parse_signature(
         ):
             args = [arg.arg for arg in node.args.args]
 
-            # for i, default in enumerate(node.args.defaults, start=len(args)-len(node.args.defaults)):
-            #     args[i] += f"={ast.unparse(default)}"
+# Not use but useful to get the default values.
+#             for i, default in enumerate(node.args.defaults, start=len(args)-len(node.args.defaults)):
+#                 args[i] += f"={ast.unparse(default)}"
 
             return args
 
-    return None
+    if not ignore_error:
+        raise ValueError(
+            f"'{func_name}' is not a function of the file:\n{file}"
+        )
