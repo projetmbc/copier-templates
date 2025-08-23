@@ -27,8 +27,8 @@ Contribute to copier-templates
 
 JINJA_TITLE = """
 {% set __deco = '='*(14 + project_name | length) -%}
-Contribute to {{project_name}}
-{{__deco}}
+Contribute to {{ project_name }}
+{{ __deco }}
 """.strip()
 
 
