@@ -2,6 +2,7 @@
 
 import              ast
 from pathlib import Path
+import              re
 
 from black import (
     FileMode,
@@ -13,9 +14,20 @@ from black import (
 from cbutils.core.logconf import *
 
 
-# ----------------- #
-# -- PYTHON CODE -- #
-# ----------------- #
+# --------------- #
+# -- CONSTANTS -- #
+# --------------- #
+
+PATTERN_PYSUGLIFY = re.compile(r'[\s\-.]+')
+
+
+# ----------------------- #
+# -- BUILD PYTHON CODE -- #
+# ----------------------- #
+
+def pysuglify(name):
+    return PATTERN_PYSUGLIFY.sub('_', name)
+
 
 ###
 # prototype::
@@ -82,9 +94,9 @@ def append_black_pyfile(
     file.write_text(code)
 
 
-# --------------------- #
-# -- PYTHON ANALYSIS -- #
-# --------------------- #
+# ------------------------- #
+# -- ANALYZE PYTHON CODE -- #
+# ------------------------- #
 
 ###
 # prototype::
