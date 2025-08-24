@@ -1,7 +1,9 @@
-Development tools
-=================
+Core development tools
+======================
 
-The `tools` folder contains `Python` tools that are useful for developing the project, but are not part of the project itself.
+The `tools/cbutils/core` folder contains `Python` tools offered by the template used to start this project.
+
+> ***WARNING!*** *Do not change this folder!*
 
 
 **Table of contents**

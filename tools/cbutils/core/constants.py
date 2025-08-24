@@ -19,8 +19,6 @@ INIT_FILE    = f"{TAG_INIT}.py"
 
 SHEBANG_PYTHON = "#!/usr/bin/env python3\n"
 
-TAG_SIGNS = "signatures"
-
 
 PATTERN_SECTION_COMMENT = re.compile(
     r"#\s+-+\s+#\n# --(.*)-- #\n# -+ #\n"

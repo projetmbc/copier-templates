@@ -2,6 +2,7 @@
 
 import              ast
 from pathlib import Path
+import              re
 
 from black import (
     FileMode,
@@ -13,9 +14,26 @@ from black import (
 from cbutils.core.logconf import *
 
 
-# ----------------- #
-# -- PYTHON CODE -- #
-# ----------------- #
+# --------------- #
+# -- CONSTANTS -- #
+# --------------- #
+
+PATTERN_PYSUGLIFY = re.compile(r'[\s\-.]+')
+
+
+# ----------------------- #
+# -- BUILD PYTHON CODE -- #
+# ----------------------- #
+
+###
+# prototype::
+#     name : XXX
+#
+#     :return: XXX
+###
+def pysuglify(name: str) -> str:
+    return PATTERN_PYSUGLIFY.sub('_', name)
+
 
 ###
 # prototype::
@@ -82,9 +100,9 @@ def append_black_pyfile(
     file.write_text(code)
 
 
-# --------------------- #
-# -- PYTHON ANALYSIS -- #
-# --------------------- #
+# ------------------------- #
+# -- ANALYZE PYTHON CODE -- #
+# ------------------------- #
 
 ###
 # prototype::
@@ -124,3 +142,8 @@ def get_parse_signature(
         raise ValueError(
             f"'{func_name}' is not a function of the file:\n{file}"
         )
+
+
+# ------------------------- #
+# -- EXTRACT PYTHON CODE -- #
+# ------------------------- #

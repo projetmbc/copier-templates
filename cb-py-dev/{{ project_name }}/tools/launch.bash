@@ -122,7 +122,7 @@ cd "$THIS_DIR"
 # at each launching.
 rm -f tools.log
 
-# We ignore any Python file inside the `utilities` folder.
+# We ignore any Python file inside the `cbutils` folder.
 find . -type f -name "*.py" ! -path "./cbutils/*" | sort | while read -r builderfile
 do
     echo ""

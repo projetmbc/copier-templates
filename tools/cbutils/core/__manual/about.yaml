@@ -1,7 +1,8 @@
 toc:
   - prologue.md
-  - treeview.md
-  - launch.md
-  - turnkey-tools.md
-  - turnkey-tools/
-  - cbutils.md
+  - constants.md
+  - contrib.md
+  - logconf.md
+  - messages.md
+  - pathplus.md
+  - pyfiles.md

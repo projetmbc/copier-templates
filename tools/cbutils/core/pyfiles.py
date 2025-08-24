@@ -25,7 +25,13 @@ PATTERN_PYSUGLIFY = re.compile(r'[\s\-.]+')
 # -- BUILD PYTHON CODE -- #
 # ----------------------- #
 
-def pysuglify(name):
+###
+# prototype::
+#     name : XXX
+#
+#     :return: XXX
+###
+def pysuglify(name: str) -> str:
     return PATTERN_PYSUGLIFY.sub('_', name)
 
 
@@ -136,3 +142,8 @@ def get_parse_signature(
         raise ValueError(
             f"'{func_name}' is not a function of the file:\n{file}"
         )
+
+
+# ------------------------- #
+# -- EXTRACT PYTHON CODE -- #
+# ------------------------- #
