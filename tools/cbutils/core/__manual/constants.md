@@ -1,4 +1,4 @@
-XXX
------------------------
+constants.py
+------------
 
-YYY
+This file aggregates useful constants.

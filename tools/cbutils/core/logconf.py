@@ -122,15 +122,3 @@ def setup_logging(no_color: bool = False) -> None:
 # Let's activate our configurations.
 ###
 setup_logging()
-
-
-# ----------- #
-# -- TESTS -- #
-# ----------- #
-
-if __name__ == "__main__":
-    logging.info("One information.")
-    # logging.debug("Debugging?")
-    logging.warning("One warning!")
-    logging.error("An error!")
-    logging.critical("A critical error!")

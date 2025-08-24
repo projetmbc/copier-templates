@@ -1,4 +1,4 @@
-XXX
------------------------
+messages.py
+-----------
 
-YYY
+This file standardises the use of certain common messages.

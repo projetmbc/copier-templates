@@ -1,4 +1,4 @@
-XXX
------------------------
+pathplus.py
+-----------
 
-YYY
+This file provides tools for working with folders and files.

@@ -6,6 +6,6 @@ The `tools/cbutils/core` folder contains `Python` tools offered by the template 
 > ***WARNING!*** *Do not change this folder!*
 
 
-**Table of contents**
+**The Python files**
 
 ::TOC::
