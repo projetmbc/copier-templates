@@ -2,7 +2,7 @@
 
 
 ==
-23  (1.0.0)   ????
+24  (1.0.0-beta.1)
 ==
 
 -----
@@ -10,7 +10,7 @@
 -----
 
 [[:api:]]
-First public version, starting with the "single" \python project template.
+First beta version, starting with the "single" \python project template. It still needs to be tested with personal projects before moving on to version version::''1.0.0''.
 
 
 // ---------- //

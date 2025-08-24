@@ -35,7 +35,7 @@ TAG_WARNING = 'warning'
 
 README_DIRS = [
     '__readme',
-    TAG_README:= 'readme',
+    TAG_README,
     '__manual',
 ]
 
@@ -114,7 +114,7 @@ def log_print(
     folder = "main" if str(folder) == '.' else f"'{folder}'"
 
     logger(
-        f"{md_name} {about} in the {folder} folder."
+        f"'{md_name}' {about} in the {folder} folder."
     )
 
 
@@ -137,8 +137,8 @@ for readme in COPIER_TMPL_DIR.rglob('README.md'):
             md_name = TAG_README.upper(),
             about   = "removed",
             folder  = get_relpath(
-                path       = readme,
-                copier_dir = COPIER_TMPL_DIR
+                subpath  = readme,
+                mainpath = COPIER_TMPL_DIR
             ),
         )
 

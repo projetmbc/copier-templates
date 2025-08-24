@@ -57,7 +57,7 @@ Turnkey tools <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><
 <a id="MULTIMD-TOC-ANCHOR-3"></a>
 ### Updating README.md files via multimd <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
 
-The `90-update-READMEs.py` script searches for `readme` folders. For each folder found, the `Python` module `multimd` is invoked to generate a `README.md` file alongside the `readme` folder.
+The `90-update-READMEs.py` script searches for `readme` folders. For each folder found, the `Python` module `multimd` is invoked to generate a single `README.md` file alongside the `readme` folder.
 
 <a id="MULTIMD-TOC-ANCHOR-4"></a>
 ### Contribution file documentation <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>

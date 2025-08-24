@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
 
-from pathlib     import Path
-import sys
-sys.path.append(str(Path(__file__).parent.parent.parent))
-
-
-
-
 from collections import defaultdict
 from pathlib     import Path
 
@@ -21,6 +14,17 @@ from cbutils.core.messages  import *
 # -- ACCEPTED CONTRIB. -- #
 # ----------------------- #
 
+###
+# prototype::
+#     projdir : the path of the project folder.
+#
+#     :return: the key are folders containing accpeted contributions,
+#              and values are list of file or folder names.
+#
+# caution::
+#     It is the responsibility of the user code to optimise the paths
+#     for humanly useful rendering.
+###
 def get_accepted_paths(projdir: Path) -> dict[Path, str]:
     logging.info("Looking for accepted contribs.")
 
@@ -48,7 +52,7 @@ def get_accepted_paths(projdir: Path) -> dict[Path, str]:
 
 # Ambiguity?
         if is_folder and files:
-            desc = "illegal OK contrib status"
+            desc = "Several acceptable contribs."
 
             xtra = []
 
@@ -58,10 +62,7 @@ def get_accepted_paths(projdir: Path) -> dict[Path, str]:
             for p in files:
                 xtra.append(f"File: '{p.name}'.")
 
-            xtra = (
-                  f'Several acceptable contribs.\n{TAB_ITEM_1}'
-                + TAB_ITEM_1.join(xtra)
-            )
+            xtra = f'\n{TAB_ITEM_1}' + TAB_ITEM_1.join(xtra)
 
             log_raise_error(
                 exception = IOError,
@@ -73,7 +74,7 @@ def get_accepted_paths(projdir: Path) -> dict[Path, str]:
         if not(is_folder or files):
             log_raise_error(
                 exception = IOError,
-                desc      = f"no contrib. found for '{stem}'.",
+                desc      = f"No contrib. found for '{stem}'.",
             )
 
 # Contrib. found.
@@ -85,9 +86,5 @@ def get_accepted_paths(projdir: Path) -> dict[Path, str]:
 
         accepted_paths[path.parent].append(path.name)
 
-# Let's sort the lists of paths for a better output.
-    for parent in accepted_paths:
-        accepted_paths[path.parent].sort()
-
-# Let's sort the lists of paths for a better output.
+# Our job is finished.
     return accepted_paths
