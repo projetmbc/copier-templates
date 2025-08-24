@@ -18,6 +18,12 @@ from cbutils.core.logconf import *
 # -- CONSTANTS -- #
 # --------------- #
 
+PATTERN_LEGAL_NAME = re.compile(
+    r'^[A-Za-z _.-][A-Za-z0-9 _.-]*$',
+# We don't accept unicode characters!
+    flags = re.ASCII
+)
+
 PATTERN_PYSUGLIFY = re.compile(r'[\s\-.]+')
 
 
@@ -27,11 +33,19 @@ PATTERN_PYSUGLIFY = re.compile(r'[\s\-.]+')
 
 ###
 # prototype::
-#     name : XXX
+#     name : a name using \ascii letters, digits, spaces, hyphens,
+#            underscores and points (no unicode characters accepted).
 #
-#     :return: XXX
+#     :return: a legal \python name.
 ###
 def pysuglify(name: str) -> str:
+    if PATTERN_LEGAL_NAME.fullmatch(name) is None:
+        raise ValueError(
+             "'name' can only use ASCII letters, spaces, hyphens,"
+             "digits, underscores and points (no unicode characters)."
+            f"See:\n{name}"
+        )
+
     return PATTERN_PYSUGLIFY.sub('_', name)
 
 
