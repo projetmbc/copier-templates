@@ -4,7 +4,6 @@ from pathlib import Path
 import              re
 
 from cbutils.core.constants import *
-from cbutils.core.logconf   import *
 
 
 # ------------ #

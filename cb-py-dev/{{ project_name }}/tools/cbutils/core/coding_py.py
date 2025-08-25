@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-import              ast
-from pathlib import Path
-import              re
+import ast
 
 from black import (
     FileMode,
@@ -11,7 +9,7 @@ from black import (
     WriteBack,
 )
 
-from cbutils.core.logconf import *
+from cbutils.core.coding import *
 
 
 # --------------- #
@@ -147,7 +145,10 @@ def get_parse_signature(
             args = [arg.arg for arg in node.args.args]
 
 # Not use but useful to get the default values.
-#             for i, default in enumerate(node.args.defaults, start=len(args)-len(node.args.defaults)):
+#             for i, default in enumerate(
+#                 node.args.defaults,
+#                 start = len(args) - len(node.args.defaults)
+#             ):
 #                 args[i] += f"={ast.unparse(default)}"
 
             return args
@@ -164,7 +165,39 @@ def get_parse_signature(
 
 ###
 # prototype::
-#     XXX : YYY
-#     XXX : YYY
-#     XXX : YYY
+#     file: YYY
+#
+#     :return: YYY
 ###
+def split_in_parts(file: Path) -> dict[str, dict[str, Path]]:
+    return split_in_parts(
+        file        = file,
+        pat_headers = [
+            PATTERN_COMMENT_HD_1,
+            PATTERN_COMMENT_HD_2
+        ],
+    )
+
+
+###
+# prototype::
+#     title : YYY
+#
+#     :return: YYY
+###
+def magic_comment(title: str) -> str:
+    if title == TAG_ROOT_HEADER:
+        return ""
+
+    title = f"-- {title} --"
+
+    rule = '-'*len(title)
+    rule = f"# {rule} #"
+
+    title = f"""
+{rule}
+# {title} #
+{rule}
+    """.strip()
+
+    return title

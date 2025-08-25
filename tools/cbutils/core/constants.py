@@ -2,8 +2,6 @@
 
 import re
 
-from cbutils.core.constants import *
-from cbutils.core.constants import *
 
 # ------------ #
 # -- README -- #
