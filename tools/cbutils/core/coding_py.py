@@ -162,30 +162,39 @@ def get_parse_signature(
 
 ###
 # prototype::
-#     XXX : YYY
-#     XXX : YYY
-#     XXX : YYY
+#     file: YYY
+#
+#     :return: YYY
 ###
+def split_in_parts(file: Path) -> dict[str, dict[str, Path]]:
+    return split_in_parts(
+        file        = file,
+        pat_headers = [
+            PATTERN_COMMENT_HD_1,
+            PATTERN_COMMENT_HD_2
+        ],
+    )
+
 
 ###
 # prototype::
-#     XXX : YYY
-#     XXX : YYY
-#     XXX : YYY
+#     title : YYY
+#
+#     :return: YYY
 ###
-def magic_comment(section):
-    if section == SECTION_MAIN:
+def magic_comment(title: str) -> str:
+    if title == TAG_ROOT_HEADER:
         return ""
 
-    section = f"-- {section} --"
+    title = f"-- {title} --"
 
-    rule = '-'*len(section)
+    rule = '-'*len(title)
     rule = f"# {rule} #"
 
-    section = f"""
+    title = f"""
 {rule}
-# {section} #
+# {title} #
 {rule}
     """.strip()
 
-    return section
+    return title

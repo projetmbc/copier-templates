@@ -7,6 +7,13 @@ from cbutils.core.constants import *
 from cbutils.core.logconf   import *
 
 
+# ------------ #
+# -- TYPING -- #
+# ------------ #
+
+type NestedDictPath = dict[str, Path | NestedDictPath]
+
+
 # -------------------- #
 # -- SPLIT IN PARTS -- #
 # -------------------- #
@@ -22,8 +29,8 @@ from cbutils.core.logconf   import *
 def split_in_parts(
     file       : Path,
     pat_headers: list[re.Pattern],
-    strip_parts: bool = False,
-):
+    strip_parts: bool = True,
+) -> NestedDictPath:
     return _recu_split_in_parts(
         content     = file.read_text(),
         pat_headers = pat_headers,
@@ -43,7 +50,7 @@ def _recu_split_in_parts(
     content    : str,
     pat_headers: list[re.Pattern],
     strip_parts: bool,
-):
+) -> NestedDictPath:
 # No pattern.
     if not pat_headers:
         return content
