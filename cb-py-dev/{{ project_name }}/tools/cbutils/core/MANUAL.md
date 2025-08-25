@@ -16,45 +16,45 @@ The `tools/cbutils/core` folder contains `Python` tools offered by the template 
 **The Python files**
 
 <a id="MULTIMD-GO-BACK-TO-TOC"></a>
-- [constants.py](#MULTIMD-TOC-ANCHOR-0)
-- [logconf.py](#MULTIMD-TOC-ANCHOR-1)
-- [messages.py](#MULTIMD-TOC-ANCHOR-2)
-- [pathplus.py](#MULTIMD-TOC-ANCHOR-3)
-- [contrib.py](#MULTIMD-TOC-ANCHOR-4)
-- [code\_py.py](#MULTIMD-TOC-ANCHOR-5)
+- [coding\_py.py](#MULTIMD-TOC-ANCHOR-0)
+- [constants.py](#MULTIMD-TOC-ANCHOR-1)
+- [contrib.py](#MULTIMD-TOC-ANCHOR-2)
+- [logconf.py](#MULTIMD-TOC-ANCHOR-3)
+- [messages.py](#MULTIMD-TOC-ANCHOR-4)
+- [pathplus.py](#MULTIMD-TOC-ANCHOR-5)
 
 <a id="MULTIMD-TOC-ANCHOR-0"></a>
+coding\_py.py <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
+-------------
+
+This file is dedicated to the creation and manipulation of `Python` codes.
+
+<a id="MULTIMD-TOC-ANCHOR-1"></a>
 constants.py <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
 ------------
 
 This file aggregates useful constants.
 
-<a id="MULTIMD-TOC-ANCHOR-1"></a>
-logconf.py <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
-----------
-
-This file configures the formatting of log messages generated via the `logging` module.
-
 <a id="MULTIMD-TOC-ANCHOR-2"></a>
-messages.py <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
------------
-
-This file standardises the use of certain common messages.
-
-<a id="MULTIMD-TOC-ANCHOR-3"></a>
-pathplus.py <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
------------
-
-This file provides tools for working with folders and files.
-
-<a id="MULTIMD-TOC-ANCHOR-4"></a>
 contrib.py <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
 ----------
 
 This file provides tools to facilitate the management of contributions.
 
-<a id="MULTIMD-TOC-ANCHOR-5"></a>
-code\_py.py <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
+<a id="MULTIMD-TOC-ANCHOR-3"></a>
+logconf.py <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
+----------
+
+This file configures the formatting of log messages generated via the `logging` module.
+
+<a id="MULTIMD-TOC-ANCHOR-4"></a>
+messages.py <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
 -----------
 
-This file is dedicated to the creation and manipulation of `Python` codes.
+This file standardises the use of certain common messages.
+
+<a id="MULTIMD-TOC-ANCHOR-5"></a>
+pathplus.py <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
+-----------
+
+This file provides tools for working with folders and files.

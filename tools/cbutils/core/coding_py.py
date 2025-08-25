@@ -24,7 +24,7 @@ PATTERN_LEGAL_NAME = re.compile(
     flags = re.ASCII
 )
 
-PATTERN_PYSUGLIFY = re.compile(r'[\s\-.]+')
+PATTERN_PYSUGLIFY = re.compile(r'[\s\-\.]+')
 
 
 # ----------------------- #
@@ -161,3 +161,10 @@ def get_parse_signature(
 # ------------------------- #
 # -- EXTRACT PYTHON CODE -- #
 # ------------------------- #
+
+###
+# prototype::
+#     XXX : YYY
+#     XXX : YYY
+#     XXX : YYY
+###
