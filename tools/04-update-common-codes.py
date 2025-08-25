@@ -16,7 +16,7 @@ CBUTILS_CORE_DIR = THIS_DIR / 'cbutils' / 'core'
 TAG_DEBUG_FOLDER = 'x-debug-x/'
 
 
-TAG_LAUNCH_FILE = 'launch.bash'
+TAG_LAUNCH_FILE = 'launch.sh'
 TAG_MANUAL_FILE = 'MANUAL.md'
 
 TO_UPDATE  = [p for p in CBUTILS_CORE_DIR.glob("*.py")]

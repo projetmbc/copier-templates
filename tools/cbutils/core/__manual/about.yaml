@@ -1,8 +1,8 @@
 toc:
   - prologue.md
   - constants.md
-  - contrib.md
   - logconf.md
   - messages.md
   - pathplus.md
-  - pyfiles.md
+  - contrib.md
+  - code_py.md

@@ -20,7 +20,8 @@ from cbutils.core.logconf import *
 
 PATTERN_LEGAL_NAME = re.compile(
     r'^[A-Za-z _.-][A-Za-z0-9 _.-]*$',
-    flags = re.ASCII  # We don't accept unicode characters!
+# We don't accept unicode characters!
+    flags = re.ASCII
 )
 
 PATTERN_PYSUGLIFY = re.compile(r'[\s\-.]+')
