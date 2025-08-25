@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-import              ast
-from pathlib import Path
-import              re
+import ast
 
 from black import (
     FileMode,
@@ -11,7 +9,7 @@ from black import (
     WriteBack,
 )
 
-from cbutils.core.logconf import *
+from cbutils.core.coding import *
 
 
 # --------------- #
@@ -168,3 +166,26 @@ def get_parse_signature(
 #     XXX : YYY
 #     XXX : YYY
 ###
+
+###
+# prototype::
+#     XXX : YYY
+#     XXX : YYY
+#     XXX : YYY
+###
+def magic_comment(section):
+    if section == SECTION_MAIN:
+        return ""
+
+    section = f"-- {section} --"
+
+    rule = '-'*len(section)
+    rule = f"# {rule} #"
+
+    section = f"""
+{rule}
+# {section} #
+{rule}
+    """.strip()
+
+    return section

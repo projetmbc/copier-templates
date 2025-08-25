@@ -11,19 +11,13 @@ THIS_DIR         = Path(__file__).parent
 CBUTILS_CORE_DIR = THIS_DIR / 'cbutils' / 'core'
 
 
-# ----------- #
-# -- TOOLS -- #
-# ----------- #
+# ------------- #
+# -- CONFIG. -- #
+# ------------- #
 
 TMPL_INIT = """
 #!/usr/bin/env python3
 
-{names}
-""".lstrip()
-
-TMPL_ABOUT = """
-toc:
-  - prologue.md
 {names}
 """.lstrip()
 
@@ -37,15 +31,21 @@ def format_list_init(names):
 
     return names
 
+
+TMPL_ABOUT = """
+toc:
+  - prologue.md
+{names}
+""".lstrip()
+
 def format_list_about(names):
     names = '\n'.join([f"  - {n}.md" for n in names])
 
     return names
 
 
-
 TODO = [
-# file, formater, tmpl
+# FILE, FORMATER, TMPL
     (
         CBUTILS_CORE_DIR / "__init__.py",
         format_list_init,
