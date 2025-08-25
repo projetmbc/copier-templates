@@ -1,4 +1,4 @@
 logconf.py
 ----------
 
-This file configures the formatting of the logging messages via the module `logging`.
+This file configures the formatting of log messages generated via the `logging` module.
