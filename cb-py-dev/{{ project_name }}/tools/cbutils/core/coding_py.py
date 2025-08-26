@@ -16,13 +16,28 @@ from cbutils.core.coding import *
 # -- CONSTANTS -- #
 # --------------- #
 
+TAG_INIT     = "__init__"
+INIT_FILE    = f"{TAG_INIT}.py"
+
+SHEBANG_PYTHON = "#!/usr/bin/env python3\n"
+
+
 PATTERN_LEGAL_NAME = re.compile(
     r'^[A-Za-z _.-][A-Za-z0-9 _.-]*$',
-# We don't accept unicode characters!
+# We do not accept unicode characters!
     flags = re.ASCII
 )
 
 PATTERN_PYSUGLIFY = re.compile(r'[\s\-\.]+')
+
+
+PATTERN_COMMENT_HD_1 = re.compile(
+    r"#\s+-+\s+#\n# --(.*)-- #\n# -+ #\n"
+)
+
+PATTERN_COMMENT_HD_2 = re.compile(
+    r"# ~~(.*)~~ #\n"
+)
 
 
 # ----------------------- #
@@ -165,12 +180,28 @@ def get_parse_signature(
 
 ###
 # prototype::
-#     file: YYY
+#     file : :see: ./coding.hd_split_file
 #
-#     :return: YYY
+#     :return: :see: ./coding.hd_split_file
+#
+#
+# Here is a fictive content with the two kinds of section available.
+#
+# python::
+#     ...
+#
+#     # ------------- #
+#     # -- LEVEL 1 -- #
+#     # ------------- #
+#
+#     ...
+#
+#     # ~~ LEVEL 2 ~~ #
+#
+#     ...
 ###
-def split_in_parts(file: Path) -> dict[str, dict[str, Path]]:
-    return split_in_parts(
+def hd_split_pyfile(file: Path) -> dict[str, dict[str, Path]]:
+    return hd_split_file(
         file        = file,
         pat_headers = [
             PATTERN_COMMENT_HD_1,
@@ -181,23 +212,21 @@ def split_in_parts(file: Path) -> dict[str, dict[str, Path]]:
 
 ###
 # prototype::
-#     title : YYY
+#     title : a title
 #
-#     :return: YYY
+#     :return: the level 1 magic comment for a section title.
 ###
 def magic_comment(title: str) -> str:
     if title == TAG_ROOT_HEADER:
         return ""
 
     title = f"-- {title} --"
-
-    rule = '-'*len(title)
-    rule = f"# {rule} #"
+    rule  = '-'*len(title)
 
     title = f"""
-{rule}
+# {rule} #
 # {title} #
-{rule}
+# {rule} #
     """.strip()
 
     return title

@@ -6,3 +6,8 @@ copier-templates - TODO
 > ---------------------------- <
 
 pour les template copier faire en sorte que pour les monorepo il y ait un fichier bash qui lance une mise à jour relative au template
+
+
+> ---------------------------- <
+
+!include ../cb-dev-common/copier.yaml

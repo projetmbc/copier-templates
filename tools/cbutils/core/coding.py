@@ -13,24 +13,38 @@ from cbutils.core.constants import *
 type NestedDictPath = dict[str, Path | NestedDictPath]
 
 
+# --------------- #
+# -- CONSTANTS -- #
+# --------------- #
+
+TAG_ROOT_HEADER = ".:-R-O-O-T-:."
+
+
 # -------------------- #
 # -- SPLIT IN PARTS -- #
 # -------------------- #
 
 ###
 # prototype::
-#     file        : YYY
-#     pat_headers : YYY
-#     strip_parts : YYY
+#     file        : a file to analyze.
+#     pat_headers : the list of regular expressions identifying
+#                   the headers used to section the content.
+#     strip_parts : set to ''True'', the contents are stripped.
 #
-#     :return: YYY
+#     :return: a dictionary reflecting the structure of the extracted
+#              content according to the relevant header level.
+#
+#
+# note::
+#     At the beginning of each piece of content that has not yet
+#     been analysed, the basic header is ''TAG_ROOT_HEADER''.
 ###
-def split_in_parts(
+def hd_split_file(
     file       : Path,
     pat_headers: list[re.Pattern],
     strip_parts: bool = True,
 ) -> NestedDictPath:
-    return _recu_split_in_parts(
+    return _recu_hd_split_file(
         content     = file.read_text(),
         pat_headers = pat_headers,
         strip_parts = strip_parts,
@@ -39,13 +53,13 @@ def split_in_parts(
 
 ###
 # prototype::
-#     content     : YYY
-#     pat_headers : :see: split_in_parts
-#     strip_parts : :see: split_in_parts
+#     content     : a content to analyze.
+#     pat_headers : :see: hd_split_file
+#     strip_parts : :see: hd_split_file
 #
-#     :return: YYY
+#     :return: :see: hd_split_file
 ###
-def _recu_split_in_parts(
+def _recu_hd_split_file(
     content    : str,
     pat_headers: list[re.Pattern],
     strip_parts: bool,
@@ -54,7 +68,7 @@ def _recu_split_in_parts(
     if not pat_headers:
         return content
 
-# One pattern.
+# Use of the first pattern.
     parts = dict()
     curhd = TAG_ROOT_HEADER # Current header.
 
@@ -68,7 +82,7 @@ def _recu_split_in_parts(
             if strip_parts:
                 piece = piece.strip()
 
-            parts[curhd] = _recu_split_in_parts(
+            parts[curhd] = _recu_hd_split_file(
                 content     = piece,
                 pat_headers = other_patterns,
                 strip_parts = strip_parts,
