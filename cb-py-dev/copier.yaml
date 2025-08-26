@@ -57,7 +57,7 @@ _skip_if_exists:
 _exclude:
 # -- ALWAYS! -- #
   - "copier.yaml"
-  - ".*"
+  - ".DS_Store"
 # -- SPECIFIC -- #
   - "__manual"
   - "__readme"

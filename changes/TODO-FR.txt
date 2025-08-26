@@ -5,6 +5,13 @@ copier-templates - TODO
 
 > ---------------------------- <
 
+python single
+
+    --> Complete list of dependencies
+
+
+> ---------------------------- <
+
 pour les template copier faire en sorte que pour les monorepo il y ait un fichier bash qui lance une mise à jour relative au template
 
 
