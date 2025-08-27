@@ -25,9 +25,12 @@ Where are the contributions? <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decor
 
 The contributions made are in the `contrib` folder which has the following structure.
 
+<!-- FOLDER STRUCT. AUTO - START -->
 ~~~
 + contrib
 ~~~
+<!-- FOLDER STRUCT. AUTO - END -->
+
 <a id="MULTIMD-TOC-ANCHOR-1"></a>
 Contribution workflow <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
 ---------------------

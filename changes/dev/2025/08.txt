@@ -2,6 +2,33 @@
 
 
 ==
+27  (1.0.0-beta.2)
+==
+
+-----
+:new:
+-----
+
+[[:api:]]
+verb::''cb-py-dev'' \tmpl updated.
+
+    1) path::''90-update-MD-DEPS.py'' added to manage the \deps in the \readme project.
+
+    1) path::''91-update-READMEs.py'' is just a renaming of path::''90-update-READMEs.py''.
+
+
+-----
+:fix:
+-----
+
+[[:api:]]
+\Contribs: the magic comments need to update the path::''contrib'' folder structure were missing.
+
+
+// ---------- //
+
+
+==
 26  (1.0.0-beta.1)
 ==
 
