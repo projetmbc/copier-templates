@@ -94,11 +94,7 @@ def get_accepted_paths(projdir: Path) -> dict[Path, str]:
             )
 
 # Contrib. found.
-        if is_folder:
-            path = parent / stem
-
-        else:
-            path = files[0]
+        path = parent / stem if is_folder else files[0]
 
         accepted_paths[path.parent].append(path.name)
 
