@@ -2,6 +2,31 @@
 
 
 ==
+27
+==
+
+--------
+:update:
+--------
+
+[[:api:]]
+
+"Single" \python project template becomes a template for project parts of a monorepo.
+
+
+-----
+:fix:
+-----
+
+[[:tech:]]
+
+path::''cb-py-mono-part/copier.yaml'': some incorrect values corrected in yaml::''_skip_if_exists''.
+
+
+// ---------- //
+
+
+==
 27  (1.0.0)
 ==
 
