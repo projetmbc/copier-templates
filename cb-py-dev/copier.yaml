@@ -50,8 +50,9 @@ acronym:
 # No update of files that will be changed by the user.
 _skip_if_exists:
   - "TODO-FR.txt"
-  - readme/prologue.md
-  - readme/about.md
+  - "*/changes/*/*/*.txt"
+  - "*/readme/*"
+  - "*/src/**"
 
 # Excluded from the user's template.
 _exclude:
