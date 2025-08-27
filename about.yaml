@@ -1,7 +1,7 @@
 project:
   version: "1.0.0"
 
-  desc   : XXX
+  desc: This project contains some `copier`` templates.
 
   author: Christophe, BAL
 
