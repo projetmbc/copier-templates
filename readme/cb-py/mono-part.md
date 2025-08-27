@@ -1,4 +1,4 @@
-### An isolated project
+### An isolated project inside a monorepo
 
 The initial general organisation is as follows.
 

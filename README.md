@@ -15,14 +15,14 @@ This project brings together [`copier`](https://github.com/copier-org/copier) te
 
 <a id="MULTIMD-GO-BACK-TO-TOC"></a>
 - [Python templates](#MULTIMD-TOC-ANCHOR-0)
-    - [An isolated project](#MULTIMD-TOC-ANCHOR-1)
+    - [An isolated project inside a monorepo](#MULTIMD-TOC-ANCHOR-1)
 
 <a id="MULTIMD-TOC-ANCHOR-0"></a>
 Python templates <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
 ----------------
 
 <a id="MULTIMD-TOC-ANCHOR-1"></a>
-### An isolated project <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
+### An isolated project inside a monorepo <a href="#MULTIMD-GO-BACK-TO-TOC" style="text-decoration: none;"><span style="margin-left: 0.25em; font-weight: bold; position: relative; top: -.5pt;">&#x2191;</span></a>
 
 The initial general organisation is as follows.
 
