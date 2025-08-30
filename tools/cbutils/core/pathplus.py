@@ -5,24 +5,6 @@ from pathlib import Path
 from cbutils.core.logconf import *
 
 
-# ----------- #
-# -- PATHS -- #
-# ----------- #
-
-###
-# prototype::
-#     subpath  : a \1st path
-#     mainpath : a \2nd path
-#
-#     :return: the path of ''subpath'' relative to ''mainpath''.
-###
-def get_relpath(
-    subpath : Path,
-    mainpath: Path
-) -> Path:
-    return subpath.relative_to(mainpath)
-
-
 # ------------------------------ #
 # -- CREATION, DELETION & CO. -- #
 # ------------------------------ #
@@ -72,3 +54,21 @@ def empty_dir(folder : Path) -> None:
 # The empty dirs are now removable.
             for name in dirs:
                 (root / name).rmdir()
+
+
+###
+# prototype::
+#     file    : a file path.
+#     content : content of the file.
+#
+#     :action: the file with the content expected is created.
+###
+def create_update_file(
+    file     : Path,
+    content  : str,
+    log_level: str = TAG_INFO
+) -> None:
+    LOG_PRINTERS[log_level](f"Creation or update: '{file.name}'.")
+
+    file.touch()
+    file.write_text(content)

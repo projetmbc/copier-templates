@@ -9,7 +9,8 @@ from black import (
     WriteBack,
 )
 
-from cbutils.core.coding import *
+from cbutils.core.coding  import *
+from cbutils.core.logconf import *
 
 
 # --------------- #
@@ -31,13 +32,21 @@ PATTERN_LEGAL_NAME = re.compile(
 PATTERN_PYSUGLIFY = re.compile(r'[\s\-\.]+')
 
 
-PATTERN_COMMENT_HD_1 = re.compile(
-    r"#\s+-+\s+#\n# --(.*)-- #\n# -+ #\n"
-)
+PATTERNS_HEADERS = [
+    PATTERN_COMMENT_HD_1:= re.compile(
+        r"#\s+-+\s+#\n# --(.*)-- #\n# -+ #\n"
+    ),
+    # PATTERN_COMMENT_HD_2:= re.compile(
+    #     r"# ~~(.*)~~ #\n"
+    # ),
+]
 
-PATTERN_COMMENT_HD_2 = re.compile(
-    r"# ~~(.*)~~ #\n"
-)
+
+# ------------ #
+# -- TYPING -- #
+# ------------ #
+
+type DictSplittedCode = dict[str, Path]
 
 
 # ----------------------- #
@@ -76,7 +85,9 @@ def add_missing_init(folder: Path) -> None:
         initfile.touch()
         initfile.write_text(SHEBANG_PYTHON)
 
-        logging.info(f"{INIT_FILE} file added.")
+        logging.info(
+            f"'{folder.name}/{INIT_FILE}' file added."
+        )
 
 
 ###
@@ -133,23 +144,21 @@ def append_black_pyfile(
 
 ###
 # prototype::
-#     file         : a file path.
+#     code         : a \python code.
 #     func_name    : a \func name.
-#     ignore_error : set to ''True'', this indicates to return
+#     is_mandatory : set to ''False'', this indicates to return
 #                    ''None'' if no \func has the given name;
 #                    otherwise, a ''ValueError'' is raised.
 #
-#     :return: the list of its \args in case of success; otherwise,
+#     :return: the set of its \args in case of success; otherwise,
 #              see the \desc of the \arg ''ignore_error''.
 ###
 def get_parse_signature(
-    file        : Path,
+    code        : str,
     func_name   : str,
-    ignore_error: bool = False,
-) -> list[str] | None:
-    src_code  = Path(file).read_text()
-    tree      = ast.parse(src_code)
-    arguments = []
+    is_mandatory: bool = True,
+) -> set[str] | None:
+    tree = ast.parse(code)
 
     for node in ast.walk(tree):
         if (
@@ -157,7 +166,7 @@ def get_parse_signature(
             and
             node.name == func_name
         ):
-            args = [arg.arg for arg in node.args.args]
+            args = set(arg.arg for arg in node.args.args)
 
 # Not use but useful to get the default values.
 #             for i, default in enumerate(
@@ -168,9 +177,9 @@ def get_parse_signature(
 
             return args
 
-    if not ignore_error:
+    if is_mandatory:
         raise ValueError(
-            f"'{func_name}' is not a function of the file:\n{file}"
+            f"Missing '{func_name}' function in the code."
         )
 
 
@@ -180,33 +189,62 @@ def get_parse_signature(
 
 ###
 # prototype::
+#     file            : a file to normalize.
+#     headers_ignored : a list of header titles to ignore some sections.
+#
+#     :return: the code of the file without the unwanted section contents.
+###
+def finalize_pycode(
+    file           : Path,
+    headers_ignored: list[str]
+) -> str:
+    code = []
+
+    for header, content in hd_split_pyfile(file).items():
+        if header in headers_ignored:
+            continue
+
+        code.append(
+            f"""
+{magic_comment(header)}
+
+{content}
+            """.strip()
+        )
+
+    code = '\n\n\n'.join(code) + '\n'
+
+    return code
+
+
+###
+# prototype::
 #     file : :see: ./coding.hd_split_file
 #
 #     :return: :see: ./coding.hd_split_file
 #
 #
-# Here is a fictive content with the two kinds of section available.
+# Here is a fictive content with the singme kind of section available.
 #
 # python::
 #     ...
 #
 #     # ------------- #
-#     # -- LEVEL 1 -- #
+#     # -- TITLE 1 -- #
 #     # ------------- #
 #
 #     ...
 #
-#     # ~~ LEVEL 2 ~~ #
+#     # ------------- #
+#     # -- TITLE 2 -- #
+#     # ------------- #
 #
 #     ...
 ###
-def hd_split_pyfile(file: Path) -> dict[str, dict[str, Path]]:
+def hd_split_pyfile(file: Path) -> DictSplittedCode:
     return hd_split_file(
         file        = file,
-        pat_headers = [
-            PATTERN_COMMENT_HD_1,
-            PATTERN_COMMENT_HD_2
-        ],
+        pat_headers = PATTERNS_HEADERS,
     )
 
 

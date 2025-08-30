@@ -2,6 +2,22 @@
 
 
 ==
+29
+==
+
+--------
+:update:
+--------
+
+[[:api:]]
+Project parts of a monorepo: testing on some real projects involves some modifications to the ''cbutils.core'' module.
+
+
+
+// ---------- //
+
+
+==
 27
 ==
 
@@ -10,7 +26,6 @@
 --------
 
 [[:api:]]
-
 "Single" \python project template becomes a template for project parts of a monorepo.
 
 
@@ -19,7 +34,6 @@
 -----
 
 [[:tech:]]
-
 path::''cb-py-mono-part/copier.yaml'': some incorrect values corrected in yaml::''_skip_if_exists''.
 
 
