@@ -189,19 +189,19 @@ def get_parse_signature(
 
 ###
 # prototype::
-#     file            : a file to normalize.
-#     headers_ignored : a list of header titles to ignore some sections.
+#     file        : a file to normalize.
+#     hds_ignored : a list of header titles to ignore some sections.
 #
 #     :return: the code of the file without the unwanted section contents.
 ###
 def finalize_pycode(
-    file           : Path,
-    headers_ignored: list[str]
+    file       : Path,
+    hds_ignored: list[str]
 ) -> str:
     code = []
 
     for header, content in hd_split_pyfile(file).items():
-        if header in headers_ignored:
+        if header in hds_ignored:
             continue
 
         code.append(
