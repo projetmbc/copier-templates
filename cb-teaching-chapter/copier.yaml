@@ -1,0 +1,47 @@
+# --------------- #
+# -- VARIABLES -- #
+# --------------- #
+
+level:
+  type   : str
+  help   : Level (mandatory data).
+  choices:
+      - 2G
+      - 1G Spécialité
+      - TG Maths. Expertes
+
+chapter_folder:
+  type     : str
+  help     : Chapter Folder (mandatory data).
+  validator: |
+    {% if chapter_folder == ''
+       or chapter_folder != chapter_folder.strip() %}
+      Stripped and not empty!
+    {% endif %}
+
+chapter_title:
+  type     : str
+  help     : Chapter Title (mandatory data).
+  validator: |
+    {% if chapter_title == ''
+       or chapter_title != chapter_title.strip() %}
+      Stripped and not empty!
+    {% endif %}
+
+manual_folder:
+  type   : str
+  help   : Manual Folder for Training (mandatory data).
+  choices:
+      - Barbazo
+      - LeLivreScolaire
+
+
+
+# -------------------------- #
+# -- COMMUNITY MANAGEMENT -- #
+# -------------------------- #
+
+_msg_after_copy: |
+  `CB` teachin math chapter "{{ chapter_folder }}" created with success.
+
+  Happy teaching!

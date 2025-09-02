@@ -1,0 +1,34 @@
+% -- TO REMOVE - START -- %
+
+\documentclass[14pt]{memoir}
+
+\usepackage{lybook}
+
+\usepackage{../../../latex-config/singlechap}
+
+\usepackage{pgfpages}
+%\hypersetup{hidelinks} \pgfpagesuselayout{2 on 1}[a4paper,landscape]
+
+\setlength{\columnseprule}{1.25pt}
+
+\begin{document}
+
+\buildfront
+    {1G - Cours de \og mathématiques \fg}
+    {Christophe BAL}
+    { {{ '%Y-%m-%d' | strftime }} }
+    { {{ level }} - Mathématiques}
+    {Lycée Monge (Chambéry - France)}
+
+% -- TO REMOVE - END -- %
+
+
+\setcounter{chapter}{1}  % For consecutive numbered chapters.
+
+\chapter{ {{ chapter_title }} }
+
+\section{Something}
+
+   \input{content/something}
+
+\end{document}
