@@ -2,13 +2,23 @@
 # -- VARIABLES -- #
 # --------------- #
 
+author:
+  type   : str
+  help   : Author (mandatory data).
+  validator: |
+    {% if author == ''
+       or author != author.strip() %}
+      Stripped and not empty!
+    {% endif %}
+
 level:
   type   : str
   help   : Level (mandatory data).
   choices:
-      - 2G
-      - 1G Spécialité
-      - TG Maths. Expertes
+      - 2G SNT
+      - 2G Maths
+      - 1G Spé. Maths
+      - TG Maths Expertes
 
 chapter_folder:
   type     : str
@@ -35,13 +45,6 @@ manual_folder:
       - Barbazo
       - LeLivreScolaire
 
-
-
-# -------------------------- #
-# -- COMMUNITY MANAGEMENT -- #
-# -------------------------- #
-
-_msg_after_copy: |
-  `CB` teachin math chapter "{{ chapter_folder }}" created with success.
-
-  Happy teaching!
+# No update of any file.
+_skip_if_exists:
+  - "*"

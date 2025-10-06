@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 
 import ast
+import sys
+import re
+
+
+import                            importlib.util
+from   importlib.machinery import ModuleSpec
 
 from black import (
     FileMode,
@@ -9,8 +15,10 @@ from black import (
     WriteBack,
 )
 
-from cbutils.core.coding  import *
-from cbutils.core.logconf import *
+
+from cbutils.core.coding   import *
+from cbutils.core.logconf  import *
+from cbutils.core.messages import *
 
 
 # --------------- #
@@ -47,6 +55,48 @@ PATTERNS_HEADERS = [
 # ------------ #
 
 type DictSplittedCode = dict[str, Path]
+
+type LegalSigns = dict[
+    str,
+    tupe[
+        bool,
+        list[set[str]]
+    ]
+]
+
+# ----------------------- #
+# -- BUILD PYTHON CODE -- #
+# ----------------------- #
+
+###
+# prototype::
+#     module_name : the name of the module from the \python point
+#                   of view (see ''__name__'')
+#     file_path   : the path of a \python file.
+#
+#     :return: a virtual module that allows to work with the code
+#              contained in the file specified as an \arg.
+#
+#
+# src::
+#     url = https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly
+###
+def import_from_path(
+    module_name: str,
+    file_path  : str | Path
+) -> ModuleSpec:
+    spec = importlib.util.spec_from_file_location(
+        module_name,
+        file_path
+    )
+
+    module = importlib.util.module_from_spec(spec)
+
+    sys.modules[module_name] = module
+
+    spec.loader.exec_module(module)
+
+    return module
 
 
 # ----------------------- #
@@ -144,23 +194,109 @@ def append_black_pyfile(
 
 ###
 # prototype::
-#     file         : a file path.
+#     file        : the \python file to analyse.
+#     legal_signs : a dictionary whose keys correspond to function
+#                   names and whose values are pairs ''(is_mandatory,
+#                   authorised_signs)'' indicating whether the
+#                   function must be present and what its possible
+#                   signatures are (use of a list of sets of \arg
+#                   names).
+#     ctxt        : the current context.
+#     desc        : short \desc to complement the ''ctxt'' \arg.
+#     code        : set to ''None'', this \arg requests that the
+#                   entire file code be used; otherwise, the ''code''
+#                   value is used (this allows only a useful part of
+#                   the file to be analysed).
+#
+#     :action: verify that special functions have an authorised
+#              signature (see the \arg ''legal_signs'').
+#
+#
+# note::
+#     Here is a possible value ofr the special \arg ''legal_signs''.
+#
+#     python::
+#         LEGAL_SIGNS = {
+#             'parse'   : (
+#                 True,
+#                 [set(['data']),
+#                  set(['amdata_cls', 'data'])]
+#             ),
+#             'map_list': (
+#                 False,
+#                 [set(['data_list']),
+#                  set(['amdata_cls', 'data_list'])]
+#             ),
+#         }
+###
+def validate_signatures(
+    file       : Path,
+    legal_signs: LegalSigns,
+    ctxt       : str,
+    desc       : str,
+    code       : str | None,
+) -> None:
+    if code is None:
+        code = file.read_text()
+
+    for func_name, (
+        is_mandatory,
+        authorised_signs
+    ) in legal_signs.items():
+        sign = get_parse_signature(
+            code         = code,
+            func_name    = func_name,
+            is_mandatory = is_mandatory,
+        )
+
+        if sign is None:
+            continue
+
+        if not sign in authorised_signs:
+            if len(authorised_signs) == 1:
+                helper = ["One authorised signature."]
+
+            else:
+                helper = ["Authorised signatures."]
+
+            helper += [
+                f"  + {func_name}({', '.join(sorted(s))})" for s in authorised_signs
+            ]
+
+            helper = '\n'.join(helper)
+
+            sign = f"({', '.join(sorted(sign))})"
+
+            log_raise_error(
+                context = ctxt,
+                desc    = (
+                    f"{desc}: "
+                    f"unauthorised signature '{sign}' for "
+                    f"'{func_name}' function in file: "
+                    f"'{file}'"
+                ),
+                exception = ValueError,
+                xtra      = f"\n\n{helper}",
+            )
+
+
+###
+# prototype::
+#     code         : a \python code.
 #     func_name    : a \func name.
-#     ignore_error : set to ''True'', this indicates to return
+#     is_mandatory : set to ''False'', this indicates to return
 #                    ''None'' if no \func has the given name;
 #                    otherwise, a ''ValueError'' is raised.
 #
-#     :return: the list of its \args in case of success; otherwise,
+#     :return: the set of its \args in case of success; otherwise,
 #              see the \desc of the \arg ''ignore_error''.
 ###
 def get_parse_signature(
-    file        : Path,
+    code        : str,
     func_name   : str,
-    ignore_error: bool = False,
-) -> list[str] | None:
-    src_code  = Path(file).read_text()
-    tree      = ast.parse(src_code)
-    arguments = []
+    is_mandatory: bool = True,
+) -> set[str] | None:
+    tree = ast.parse(code)
 
     for node in ast.walk(tree):
         if (
@@ -168,7 +304,7 @@ def get_parse_signature(
             and
             node.name == func_name
         ):
-            args = [arg.arg for arg in node.args.args]
+            args = set(arg.arg for arg in node.args.args)
 
 # Not use but useful to get the default values.
 #             for i, default in enumerate(
@@ -179,9 +315,9 @@ def get_parse_signature(
 
             return args
 
-    if not ignore_error:
+    if is_mandatory:
         raise ValueError(
-            f"'{func_name}' is not a function of the file:\n{file}"
+            f"Missing '{func_name}' function in the code."
         )
 
 
@@ -189,22 +325,21 @@ def get_parse_signature(
 # -- EXTRACT PYTHON CODE -- #
 # ------------------------- #
 
-
 ###
 # prototype::
-#     file            : :see: ./coding.hd_split_file
-#     headers_ignored : XXX
+#     file        : a file to normalize.
+#     hds_ignored : a list of header titles to ignore some sections.
 #
-#     :return: GGGG
+#     :return: the code of the file without the unwanted section contents.
 ###
 def finalize_pycode(
-    file           : Path,
-    headers_ignored: list[str]
+    file       : Path,
+    hds_ignored: list[str]
 ) -> str:
     code = []
 
     for header, content in hd_split_pyfile(file).items():
-        if header in headers_ignored:
+        if header in hds_ignored:
             continue
 
         code.append(
