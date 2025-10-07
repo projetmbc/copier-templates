@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+from pathlib import Path
+import              sys
+
+sys.path.append(str(Path(__file__).parent))
+
 from cbutils.core import *
 
 from multimd import Builder, Path
@@ -21,11 +26,7 @@ for readme_dir in PROJ_DIR.rglob(TAG_README):
     if not readme_dir.is_dir():
         continue
 
-    folder = get_relpath(
-        subpath  = readme_dir.parent,
-        mainpath = PROJ_DIR
-    )
-
+    folder = readme_dir.parent.relative_to(PROJ_DIR)
     folder = "main" if str(folder) == '.' else f"'{folder}'"
 
     logging.info(
