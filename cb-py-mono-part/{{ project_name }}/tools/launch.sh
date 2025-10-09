@@ -39,7 +39,7 @@ Options:
 readonly COLOR_RESET='\033[1;0m'
 
 readonly COLOR_SELECTION='\033[1;36m'
-readonly COLOR_ERROR='\033[1;1m'
+readonly COLOR_ERROR='\033[1;31m'
 readonly COLOR_EXEC='\033[1;32m'
 readonly COLOR_IGNORE='\033[1;33m'
 
